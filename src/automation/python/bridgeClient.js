@@ -4,22 +4,30 @@
 //   body:    { timeoutMs, prelude, code, data: { variables, table } }
 //   响应:    { ok, result, output, error?, durationMs }
 //   result 为 yuze._dump() 产出的 JSON 字符串，由调用方 parseJSON 还原。
-import Browser from 'webextension-polyfill';
 import { parseJSON } from '@/utils/helper';
+import { sendMessage } from '@/utils/message';
 import yuzeSource from './yuzeSource';
 
 const DEFAULT_CONFIG = { host: '127.0.0.1', port: 27182, token: '' };
 const CONFIG_KEY = 'pythonBridgeConfig';
 
+// 注意：执行链运行在 offscreen document，那里只有 runtime 消息 API、
+// chrome.storage 不可用——配置读写一律经 background 代理。
 export async function getBridgeConfig() {
-  const { [CONFIG_KEY]: config } = await Browser.storage.local.get(CONFIG_KEY);
+  const config = await sendMessage(
+    'python-bridge:config-get',
+    { key: CONFIG_KEY },
+    'background'
+  );
   return { ...DEFAULT_CONFIG, ...(config || {}) };
 }
 
 export async function setBridgeConfig(patch) {
-  const current = await getBridgeConfig();
-  const next = { ...current, ...patch };
-  await Browser.storage.local.set({ [CONFIG_KEY]: next });
+  const next = await sendMessage(
+    'python-bridge:config-set',
+    { key: CONFIG_KEY, patch },
+    'background'
+  );
   return next;
 }
 

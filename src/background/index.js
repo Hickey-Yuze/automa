@@ -91,6 +91,22 @@ message.on('fetch:text', (url) => {
   return fetch(url).then((response) => response.text());
 });
 
+// Python 桥接配置代理：offscreen document 无 chrome.storage，经此读写
+const PY_BRIDGE_DEFAULTS = { host: '127.0.0.1', port: 27182, token: '' };
+
+message.on('python-bridge:config-get', async ({ key }) => {
+  const store = await browser.storage.local.get(key);
+  return store[key] || PY_BRIDGE_DEFAULTS;
+});
+
+message.on('python-bridge:config-set', async ({ key, patch }) => {
+  const store = await browser.storage.local.get(key);
+  const next = { ...PY_BRIDGE_DEFAULTS, ...(store[key] || {}), ...patch };
+  await browser.storage.local.set({ [key]: next });
+
+  return next;
+});
+
 message.on('open:dashboard', (url) => BackgroundUtils.openDashboard(url));
 message.on('set:active-tab', (tabId) => {
   return browser.tabs.update(tabId, { active: true });
