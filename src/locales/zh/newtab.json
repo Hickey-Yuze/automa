@@ -245,7 +245,24 @@
     },
     "parameters": {
       "add": "添加参数",
-      "preferInTab": "在标签页中输入参数"
+      "preferInTab": "在标签页中输入参数",
+      "parameters": "参数",
+      "insertParameters": "插入参数",
+      "noParameters": "暂无参数",
+      "name": "名称",
+      "type": "类型",
+      "placeholder": "占位提示",
+      "defaultValue": "默认值",
+      "parameterName": "参数名",
+      "parameterValue": "占位提示",
+      "options": "选项",
+      "parameterRequired": "参数必填",
+      "types": {
+        "inputString": "文本输入",
+        "inputNumber": "数字输入",
+        "inputJson": "JSON 输入",
+        "checkbox": "复选框"
+      }
     },
     "my": "我的工作流",
     "testing": {

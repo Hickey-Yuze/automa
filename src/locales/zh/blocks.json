@@ -145,7 +145,22 @@
       },
       "regex-variable": {
         "name": "RegEx 变量",
-        "description": "将变量值与正则表达式匹配"
+        "description": "将变量值与正则表达式匹配",
+        "method": "方法",
+        "methods": {
+          "match": "匹配值",
+          "replace": "替换值"
+        },
+        "replaceWith": "替换为",
+        "emptyPlaceholder": "（空）",
+        "regex": "正则表达式",
+        "expressionPlaceholder": "表达式",
+        "flags": "标志",
+        "flagList": {
+          "global": "全局匹配",
+          "ignoreCase": "忽略大小写",
+          "multiline": "多行匹配"
+        }
       },
       "data-mapping": {
         "source": "源",
@@ -525,7 +540,10 @@
         }
       },
       "parameter-prompt": {
-        "name": "参数提示"
+        "name": "参数提示",
+        "timeout": {
+          "label": "超时（毫秒）（0 表示禁用）"
+        }
       },
       "get-text": {
         "name": "获取文本",

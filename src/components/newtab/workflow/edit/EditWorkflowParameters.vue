@@ -7,14 +7,20 @@
       v-if="state.parameters.length === 0"
       class="my-4 text-center text-gray-600 dark:text-gray-200"
     >
-      No parameters
+      {{ $t('workflow.parameters.noParameters') }}
     </p>
     <section v-else class="w-full">
       <div class="grid grid-cols-12 space-x-2 text-sm">
-        <div class="col-span-3" style="padding-left: 28px">Name</div>
-        <div class="col-span-2">Type</div>
-        <div class="col-span-3">Placeholder</div>
-        <div class="col-span-4">Default Value</div>
+        <div class="col-span-3" style="padding-left: 28px">
+          {{ $t('workflow.parameters.name') }}
+        </div>
+        <div class="col-span-2">{{ $t('workflow.parameters.type') }}</div>
+        <div class="col-span-3">
+          {{ $t('workflow.parameters.placeholder') }}
+        </div>
+        <div class="col-span-4">
+          {{ $t('workflow.parameters.defaultValue') }}
+        </div>
       </div>
       <draggable
         v-model="state.parameters"
@@ -29,7 +35,7 @@
                 <v-remixicon name="mdiDrag" class="handle mr-2 cursor-move" />
                 <ui-input
                   :model-value="param.name"
-                  placeholder="Parameter name"
+                  :placeholder="$t('workflow.parameters.parameterName')"
                   @change="updateParam(index, $event)"
                 />
               </div>
@@ -50,7 +56,7 @@
               <div class="col-span-3">
                 <ui-input
                   v-model="param.placeholder"
-                  placeholder="A parameter"
+                  :placeholder="$t('workflow.parameters.parameterValue')"
                 />
               </div>
               <div class="col-span-4 flex items-center">
@@ -89,14 +95,14 @@
                     name="riArrowLeftSLine"
                     class="mr-2 -ml-1 transition-transform"
                   />
-                  <span>Options</span>
+                  <span>{{ $t('workflow.parameters.options') }}</span>
                 </template>
                 <div class="mt-2 mb-4 pl-[28px]">
                   <div class="mb-2 flex items-start">
                     <ui-textarea
                       v-model="param.description"
-                      placeholder="Description"
-                      title="Description"
+                      :placeholder="$t('common.description')"
+                      :title="$t('common.description')"
                       style="max-width: 400px"
                     />
                     <ui-checkbox
@@ -105,7 +111,7 @@
                       class="ml-6"
                       @change="param.data.required = $event"
                     >
-                      Parameter required
+                      {{ $t('workflow.parameters.parameterRequired') }}
                     </ui-checkbox>
                   </div>
                   <component
@@ -141,6 +147,7 @@ import workflowParameters from '@business/parameters';
 import cloneDeep from 'lodash.clonedeep';
 import { nanoid } from 'nanoid/non-secure';
 import { reactive, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import Draggable from 'vuedraggable';
 import ParameterCheckboxValue from './Parameter/ParameterCheckboxValue.vue';
 import ParameterInputOptions from './Parameter/ParameterInputOptions.vue';
@@ -159,10 +166,12 @@ const emit = defineEmits(['update', 'update:preferTab']);
 
 const customParameters = workflowParameters();
 
+const { t } = useI18n();
+
 const paramTypes = {
   string: {
     id: 'string',
-    name: 'Input (string)',
+    name: t('workflow.parameters.types.inputString'),
     options: ParameterInputOptions,
     valueComp: ParameterInputValue,
     data: {
@@ -174,14 +183,14 @@ const paramTypes = {
   },
   number: {
     id: 'number',
-    name: 'Input (number)',
+    name: t('workflow.parameters.types.inputNumber'),
     data: {
       required: false,
     },
   },
   json: {
     id: 'json',
-    name: 'Input (JSON)',
+    name: t('workflow.parameters.types.inputJson'),
     valueComp: ParameterJsonValue,
     data: {
       required: false,
@@ -189,7 +198,7 @@ const paramTypes = {
   },
   checkbox: {
     id: 'checkbox',
-    name: 'Checkbox',
+    name: t('workflow.parameters.types.checkbox'),
     valueComp: ParameterCheckboxValue,
     data: {
       required: false,

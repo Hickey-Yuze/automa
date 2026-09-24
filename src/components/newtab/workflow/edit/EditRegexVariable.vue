@@ -15,7 +15,7 @@
     />
     <ui-select
       :model-value="data.method"
-      label="Method"
+      :label="t('workflow.blocks.regex-variable.method')"
       class="mt-2 w-full"
       @change="updateData({ method: $event })"
     >
@@ -26,8 +26,8 @@
     <ui-input
       v-if="data.method === 'replace'"
       :model-value="data.replaceVal"
-      label="Replace with"
-      placeholder="(empty)"
+      :label="t('workflow.blocks.regex-variable.replaceWith')"
+      :placeholder="t('workflow.blocks.regex-variable.emptyPlaceholder')"
       class="mt-2 w-full"
       @change="updateData({ replaceVal: $event })"
     />
@@ -37,7 +37,7 @@
           class="ml-1 block text-sm text-gray-600 dark:text-gray-200"
           for="var-expression"
         >
-          RegEx
+          {{ t('workflow.blocks.regex-variable.regex') }}
         </label>
         <div
           class="bg-input flex items-center rounded-lg px-4 transition-colors"
@@ -46,7 +46,9 @@
           <input
             id="var-expression"
             :value="data.expression"
-            placeholder="Expression"
+            :placeholder="
+              t('workflow.blocks.regex-variable.expressionPlaceholder')
+            "
             class="w-11/12 bg-transparent py-2 px-1 focus:ring-0"
             @input="updateData({ expression: $event.target.value })"
           />
@@ -55,11 +57,18 @@
       </div>
       <ui-popover>
         <template #trigger>
-          <button class="bg-input rounded-lg p-2" title="Flags">
-            {{ data.flag.length === 0 ? 'flags' : data.flag.join('') }}
+          <button
+            class="bg-input rounded-lg p-2"
+            :title="t('workflow.blocks.regex-variable.flags')"
+          >
+            {{
+              data.flag.length === 0
+                ? t('workflow.blocks.regex-variable.flags')
+                : data.flag.join('')
+            }}
           </button>
         </template>
-        <p>Flags</p>
+        <p>{{ t('workflow.blocks.regex-variable.flags') }}</p>
         <ul class="mt-2 space-y-1">
           <li v-for="flag in flags" :key="flag.id">
             <ui-checkbox
@@ -85,17 +94,17 @@ const props = defineProps({
 });
 const emit = defineEmits(['update:data']);
 
+const { t } = useI18n();
+
 const methods = [
-  { id: 'match', name: 'Match value' },
-  { id: 'replace', name: 'Replace value' },
+  { id: 'match', name: t('workflow.blocks.regex-variable.methods.match') },
+  { id: 'replace', name: t('workflow.blocks.regex-variable.methods.replace') },
 ];
 const flags = [
-  { id: 'g', name: 'global' },
-  { id: 'i', name: 'ignore case' },
-  { id: 'm', name: 'multiline' },
+  { id: 'g', name: t('workflow.blocks.regex-variable.flagList.global') },
+  { id: 'i', name: t('workflow.blocks.regex-variable.flagList.ignoreCase') },
+  { id: 'm', name: t('workflow.blocks.regex-variable.flagList.multiline') },
 ];
-
-const { t } = useI18n();
 
 function updateData(value) {
   emit('update:data', { ...props.data, ...value });

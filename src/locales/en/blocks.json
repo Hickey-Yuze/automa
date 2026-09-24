@@ -145,7 +145,22 @@
       },
       "regex-variable": {
         "name": "RegEx variable",
-        "description": "Matching a variable value against a regular expression"
+        "description": "Matching a variable value against a regular expression",
+        "method": "Method",
+        "methods": {
+          "match": "Match value",
+          "replace": "Replace value"
+        },
+        "replaceWith": "Replace with",
+        "emptyPlaceholder": "(empty)",
+        "regex": "RegEx",
+        "expressionPlaceholder": "Expression",
+        "flags": "Flags",
+        "flagList": {
+          "global": "global",
+          "ignoreCase": "ignore case",
+          "multiline": "multiline"
+        }
       },
       "data-mapping": {
         "source": "Source",
@@ -525,7 +540,10 @@
         }
       },
       "parameter-prompt": {
-        "name": "Parameter Prompt"
+        "name": "Parameter Prompt",
+        "timeout": {
+          "label": "Timeout (millisecond) (0 to disable)"
+        }
       },
       "get-text": {
         "name": "Get text",

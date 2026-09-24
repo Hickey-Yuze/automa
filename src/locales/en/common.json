@@ -8,6 +8,8 @@
     "schedule": "Schedule",
     "folder": "Folder | Folders",
     "new": "New",
+    "editTriggers": "Edit Triggers",
+    "workflowTriggers": "Workflow Triggers",
     "docs": "Documentation",
     "search": "Search",
     "example": "Example | Examples",
