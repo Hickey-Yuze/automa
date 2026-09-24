@@ -2,13 +2,13 @@
   <div>
     <div v-if="!store.integrations.googleDrive">
       <p>
-        You haven't
-        <a
+        {{ t('workflow.edit.googleDrive.notConnected.before')
+        }}<a
           href="https://docs.extension.automa.site/integrations/google-drive.html"
           target="_blank"
           class="underline"
-          >connected Automa to Google Drive</a
-        >.
+          >{{ t('workflow.edit.googleDrive.notConnected.link') }}</a
+        >{{ t('workflow.edit.googleDrive.notConnected.after') }}
       </p>
     </div>
     <template v-else>
@@ -38,17 +38,17 @@
               <ui-select
                 v-model="item.type"
                 class="grow mr-2"
-                placeholder="File location"
+                :placeholder="t('workflow.edit.googleDrive.fileLocation')"
               >
                 <option value="url">URL</option>
                 <option value="local" :disabled="!hasFileAccess">
-                  Local computer
+                  {{ t('workflow.edit.googleDrive.items.local') }}
                 </option>
                 <option
                   value="downloadId"
                   :disabled="!permissions.has.downloads"
                 >
-                  Download id
+                  {{ t('workflow.edit.googleDrive.items.downloadId') }}
                 </option>
               </ui-select>
               <ui-button icon @click="filePaths.splice(index, 1)">
@@ -58,7 +58,7 @@
             <edit-autocomplete>
               <ui-input
                 v-model="item.name"
-                placeholder="Filename (optional)"
+                :placeholder="t('workflow.blocks.save-assets.filename')"
                 class="w-full mt-2"
               />
             </edit-autocomplete>
@@ -66,14 +66,14 @@
               <ui-input
                 v-model="item.path"
                 :placeholder="placeholders[item.type]"
-                title="File location"
+                :title="t('workflow.edit.googleDrive.fileLocation')"
                 class="w-full mt-2"
               />
             </edit-autocomplete>
           </li>
         </ul>
         <ui-button class="mt-4" variant="accent" @click="addFile">
-          Add file
+          {{ t('workflow.blocks.upload-file.addFile') }}
         </ui-button>
       </div>
     </template>

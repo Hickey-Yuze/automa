@@ -2,7 +2,7 @@
   <div class="space-y-2">
     <ui-input
       :model-value="data.time"
-      label="Delay time (millisecond)"
+      :label="t('blocks.delay.input.title')"
       class="w-full"
       type="text"
       @change="updateData({ time: $event })"
@@ -10,6 +10,10 @@
   </div>
 </template>
 <script setup>
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+
 const props = defineProps({
   data: {
     type: Object,

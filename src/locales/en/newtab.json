@@ -447,6 +447,272 @@
         "title": "Tab load timeout",
         "description": "Maximum time to load a tab in milliseconds, input 0 to disable the timeout"
       }
+    },
+    "edit": {
+      "aiWorkflow": {
+        "configureToken": "Configure AI Power Token",
+        "newAiWorkflow": "New AI Workflow",
+        "searchPlaceholder": "Search workflows...",
+        "inputsTitle": "Workflow Inputs",
+        "noInputs": "No inputs",
+        "outputsTitle": "Workflow Outputs(view only)",
+        "noOutputs": "No outputs",
+        "poweredBy": "Powered by Automa",
+        "tokenIntro": "Enter your AI Power token to enable AI Workflow features",
+        "howToGetToken": "How to get your AI Power Token",
+        "steps": {
+          "settings": "Go to Settings → Authorizations in your AI Power dashboard",
+          "section": "Navigate to \"AI Power Authorization\" section",
+          "generate": "Click \"Generate New Token\" to create a new token",
+          "copy": "Copy the generated token and paste it below"
+        },
+        "openSettings": "Open AI Power Settings",
+        "tokenLabel": "AI Power Token",
+        "tokenPlaceholder": "Enter your AI Power Token...",
+        "uploadFailed": "File upload failed",
+        "fetchWorkflowsFailed": "Failed to fetch AI Power workflows: {msg}",
+        "fetchDetailFailed": "Failed to fetch AI Power workflow detail: {msg}"
+      },
+      "attributeValue": {
+        "placeholder": {
+          "value": "Value"
+        }
+      },
+      "browserEvent": {
+        "matchPattern": "Match pattern",
+        "examples": "Examples",
+        "groups": {
+          "tab": "Tab",
+          "window": "Window"
+        },
+        "events": {
+          "tabClosed": "Tab closed",
+          "tabLoaded": "Tab loaded",
+          "tabCreated": "Tab created",
+          "windowCreated": "Window created",
+          "windowClosed": "Window closed"
+        }
+      },
+      "clipboard": {
+        "placeholder": {
+          "text": "Text"
+        }
+      },
+      "closeTab": {
+        "placeholder": {
+          "close": "Close"
+        },
+        "items": {
+          "tab": "Tab",
+          "window": "Window"
+        }
+      },
+      "cookie": {
+        "seeAllProperties": "See all available properties",
+        "nameOptional": "Name (optional)",
+        "valueOptional": "Value (optional)",
+        "pathOptional": "Path (optional)",
+        "domainOptional": "Domain (optional)",
+        "sameSiteOptional": "sameSite (optional)",
+        "expirationDateOptional": "expirationDate (seconds) (optional)",
+        "requirePermission": "This block requires \"Cookies\" permission to work properly"
+      },
+      "createElement": {
+        "runBeforeLoad": "Run before page loaded",
+        "preload": {
+          "type": {
+            "style": "Style",
+            "script": "Script"
+          },
+          "addScript": "Add script"
+        }
+      },
+      "dataMapping": {
+        "placeholder": {
+          "sourceProperty": "Source property",
+          "destinationProperty": "Destination property"
+        }
+      },
+      "executeWorkflow": {
+        "groupTeam": "Team"
+      },
+      "exportData": {
+        "placeholder": {
+          "name": "unnamed"
+        },
+        "delimiter": "Delimiter",
+        "types": {
+          "json": "JSON",
+          "csv": "CSV",
+          "plain-text": "Plain text"
+        }
+      },
+      "forms": {
+        "select": {
+          "anOptionBy": "Select an option by",
+          "byValue": "The value",
+          "byPosition": "The position",
+          "firstOption": "First option",
+          "lastOption": "Last option"
+        },
+        "optionPosition": "Option position"
+      },
+      "getText": {
+        "expressionFlags": "Expression flags",
+        "placeholder": {
+          "text": "Text"
+        },
+        "use": "Use"
+      },
+      "googleDrive": {
+        "notConnected": {
+          "before": "You haven't ",
+          "link": "connected Automa to Google Drive",
+          "after": "."
+        },
+        "fileLocation": "File location",
+        "items": {
+          "local": "Local computer",
+          "downloadId": "Download id"
+        }
+      },
+      "googleSheets": {
+        "noAccessToSpreadsheet": "Automa doesn't have access to the spreadsheet.",
+        "clickHereToReadMore": "Click here to read more.",
+        "spreadsheetIdInvalid": "Spreadsheet id is invalid",
+        "noSpreadsheetSelected": "No spreadsheet is selected",
+        "spreadsheetIdInvalidCheck": "Spreadsheet Id is invalid, please check it"
+      },
+      "googleSheetsDrive": {
+        "notConnectedPrefix": "You haven't",
+        "notConnectedLink": "connected Automa to Google Drive",
+        "notConnectedSuffix": ".",
+        "tabs": {
+          "connected": "Connected"
+        },
+        "sheetName": {
+          "label": "Sheet name",
+          "placeholder": "A Spreadsheet"
+        },
+        "toast": {
+          "fileNotSpreadsheet": "File is not a google spreadsheet"
+        }
+      },
+      "handleDialog": {
+        "placeholder": {
+          "promptText": "Text"
+        }
+      },
+      "insertData": {
+        "insertDataCount": "Insert data ({count})",
+        "fileUrl": "File URL",
+        "filePathOrUrl": "File absolute path/File URL",
+        "sheetLabel": "Sheet (optional)",
+        "rangeLabel": "Range (optional)",
+        "value": "value",
+        "importFile": "Import file",
+        "noFileAccess": "Don't have access, click to learn more",
+        "previewData": "Preview data",
+        "clearPreview": "Clear preview",
+        "fileAction": "File Action",
+        "actions": {
+          "default": "Default",
+          "base64": "Read as base64",
+          "csvExcel": "CSV/Excel File",
+          "json": "Read as JSON",
+          "jsonHeader": "Read as JSON with headers"
+        }
+      },
+      "javascriptCode": {
+        "runBeforeLoad": "Run before page loaded",
+        "wrapLine": "wrap line"
+      },
+      "loopData": {
+        "placeholder": {
+          "selector": "CSS Selector or XPath"
+        },
+        "modal": {
+          "title": "Data"
+        }
+      },
+      "loopElements": {
+        "placeholder": {
+          "selector": "CSS Selector or XPath"
+        },
+        "maxWaitMoreElements": "Max seconds wait for more elements",
+        "maxWaitPageLoad": "Max seconds wait for the page to load"
+      },
+      "newWindow": {
+        "typeLabel": "Type",
+        "typeOptions": {
+          "normal": "Normal",
+          "popup": "Popup",
+          "panel": "Panel"
+        },
+        "urlLabel": "URL (optional)"
+      },
+      "notification": {
+        "placeholder": {
+          "title": "Hello world!",
+          "message": "Notification message"
+        }
+      },
+      "pressKey": {
+        "placeholder": {
+          "selector": "CSS Selector or XPath",
+          "keys": "keys"
+        }
+      },
+      "proxy": {
+        "portLabel": "Port",
+        "supportedProtocols": "Supported protocols: http, https, socks4, and socks5"
+      },
+      "switchTab": {
+        "findTabBy": "Find tab by",
+        "indexLabel": "Index",
+        "items": {
+          "tabTitle": "Tab title",
+          "nextTab": "Next tab",
+          "prevTab": "Previous tab",
+          "tabIndex": "Tab index"
+        }
+      },
+      "switchTo": {
+        "placeholder": {
+          "selector": "CSS Selector or XPath"
+        }
+      },
+      "takeScreenshot": {
+        "typePlaceholder": "Type"
+      },
+      "uploadFile": {
+        "placeholder": {
+          "path": "URL/File path/base64"
+        }
+      },
+      "webhook": {
+        "placeholder": {
+          "header": "Header {n}",
+          "value": "Value"
+        },
+        "responseType": "Response type",
+        "items": {
+          "text": "Text"
+        },
+        "dataPath": "Data path",
+        "assignColumns": "[Assign columns]"
+      },
+      "workflowState": {
+        "exceptCurrent": "Except for the current workflow",
+        "placeholder": {
+          "selectWorkflow": "Select a workflow"
+        },
+        "items": {
+          "stopAll": "Stop all workflows",
+          "stopCurrent": "Stop current workflow",
+          "stopSpecific": "Stop specific workflows"
+        }
+      }
     }
   },
   "collection": {

@@ -16,7 +16,7 @@
         :model-value="data.attributeName"
         :label="t('workflow.blocks.attribute-value.forms.name')"
         autocomplete="off"
-        placeholder="name"
+        :placeholder="t('common.name')"
         class="w-full"
         @change="updateData({ attributeName: $event })"
       />
@@ -26,7 +26,7 @@
         :model-value="data.attributeValue"
         :label="t('workflow.blocks.attribute-value.forms.value')"
         autocomplete="off"
-        placeholder="value"
+        :placeholder="t('workflow.edit.attributeValue.placeholder.value')"
         class="w-full"
         @change="updateData({ attributeValue: $event })"
       />

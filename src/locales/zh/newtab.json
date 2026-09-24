@@ -234,7 +234,7 @@
         }
       }
     },
-      "previewMode": {
+    "previewMode": {
       "title": "预览模式",
       "description": "正处于预览模式，你所做的修改不会被保存下来"
     },
@@ -446,6 +446,272 @@
       "tabLoadTimeout": {
         "title": "标签页载入超时",
         "description": "加载标签的最大时间，以毫秒为单位，通过0来禁用超时。"
+      }
+    },
+    "edit": {
+      "aiWorkflow": {
+        "configureToken": "配置 AI Power Token",
+        "newAiWorkflow": "新建 AI 工作流",
+        "searchPlaceholder": "搜索工作流...",
+        "inputsTitle": "工作流输入",
+        "noInputs": "暂无输入",
+        "outputsTitle": "工作流输出（仅查看）",
+        "noOutputs": "暂无输出",
+        "poweredBy": "由 Automa 提供支持",
+        "tokenIntro": "输入你的 AI Power token 以启用 AI Workflow 功能",
+        "howToGetToken": "如何获取 AI Power Token",
+        "steps": {
+          "settings": "在 AI Power 控制台中前往 Settings → Authorizations（设置 → 授权）",
+          "section": "前往「AI Power Authorization」分区",
+          "generate": "点击「Generate New Token」创建新 token",
+          "copy": "复制生成的 token 并粘贴到下方"
+        },
+        "openSettings": "打开 AI Power 设置",
+        "tokenLabel": "AI Power Token",
+        "tokenPlaceholder": "输入你的 AI Power Token...",
+        "uploadFailed": "文件上传失败",
+        "fetchWorkflowsFailed": "获取 AI Power 工作流列表失败：{msg}",
+        "fetchDetailFailed": "获取 AI Power 工作流详情失败：{msg}"
+      },
+      "attributeValue": {
+        "placeholder": {
+          "value": "值"
+        }
+      },
+      "browserEvent": {
+        "matchPattern": "匹配模式",
+        "examples": "示例",
+        "groups": {
+          "tab": "标签页",
+          "window": "窗口"
+        },
+        "events": {
+          "tabClosed": "标签页已关闭",
+          "tabLoaded": "标签页已加载",
+          "tabCreated": "标签页已创建",
+          "windowCreated": "窗口已创建",
+          "windowClosed": "窗口已关闭"
+        }
+      },
+      "clipboard": {
+        "placeholder": {
+          "text": "文本"
+        }
+      },
+      "closeTab": {
+        "placeholder": {
+          "close": "关闭"
+        },
+        "items": {
+          "tab": "标签页",
+          "window": "窗口"
+        }
+      },
+      "cookie": {
+        "seeAllProperties": "查看所有可用属性",
+        "nameOptional": "名称（可选）",
+        "valueOptional": "值（可选）",
+        "pathOptional": "路径（可选）",
+        "domainOptional": "域（可选）",
+        "sameSiteOptional": "sameSite（可选）",
+        "expirationDateOptional": "expirationDate（秒）（可选）",
+        "requirePermission": "此模块需要 \"Cookies\" 权限才能正常工作"
+      },
+      "createElement": {
+        "runBeforeLoad": "页面加载完成前运行",
+        "preload": {
+          "type": {
+            "style": "样式",
+            "script": "脚本"
+          },
+          "addScript": "添加脚本"
+        }
+      },
+      "dataMapping": {
+        "placeholder": {
+          "sourceProperty": "源属性",
+          "destinationProperty": "目标属性"
+        }
+      },
+      "executeWorkflow": {
+        "groupTeam": "团队"
+      },
+      "exportData": {
+        "placeholder": {
+          "name": "未命名"
+        },
+        "delimiter": "分隔符",
+        "types": {
+          "json": "JSON",
+          "csv": "CSV",
+          "plain-text": "纯文本"
+        }
+      },
+      "forms": {
+        "select": {
+          "anOptionBy": "选择选项的方式",
+          "byValue": "按值",
+          "byPosition": "按位置",
+          "firstOption": "第一个选项",
+          "lastOption": "最后一个选项"
+        },
+        "optionPosition": "选项位置"
+      },
+      "getText": {
+        "expressionFlags": "表达式标志",
+        "placeholder": {
+          "text": "文本"
+        },
+        "use": "使用"
+      },
+      "googleDrive": {
+        "notConnected": {
+          "before": "你还没有",
+          "link": "将 Automa 连接到 Google Drive",
+          "after": "。"
+        },
+        "fileLocation": "文件位置",
+        "items": {
+          "local": "本地电脑",
+          "downloadId": "下载 ID"
+        }
+      },
+      "googleSheets": {
+        "noAccessToSpreadsheet": "Automa 无权访问该电子表格。",
+        "clickHereToReadMore": "点击这里阅读更多。",
+        "spreadsheetIdInvalid": "电子表格 ID 无效",
+        "noSpreadsheetSelected": "未选择电子表格",
+        "spreadsheetIdInvalidCheck": "电子表格 ID 无效，请检查"
+      },
+      "googleSheetsDrive": {
+        "notConnectedPrefix": "你还没有",
+        "notConnectedLink": "将 Automa 连接到 Google Drive",
+        "notConnectedSuffix": "。",
+        "tabs": {
+          "connected": "已连接"
+        },
+        "sheetName": {
+          "label": "工作表名称",
+          "placeholder": "电子表格"
+        },
+        "toast": {
+          "fileNotSpreadsheet": "所选文件不是 Google 表格"
+        }
+      },
+      "handleDialog": {
+        "placeholder": {
+          "promptText": "文本"
+        }
+      },
+      "insertData": {
+        "insertDataCount": "插入数据 ({count})",
+        "fileUrl": "文件 URL",
+        "filePathOrUrl": "文件绝对路径/文件 URL",
+        "sheetLabel": "Sheet（可选）",
+        "rangeLabel": "Range（可选）",
+        "value": "值",
+        "importFile": "导入文件",
+        "noFileAccess": "没有访问权限，点击了解详情",
+        "previewData": "预览数据",
+        "clearPreview": "清除预览",
+        "fileAction": "文件操作",
+        "actions": {
+          "default": "默认",
+          "base64": "读取为 base64",
+          "csvExcel": "CSV/Excel 文件",
+          "json": "读取为 JSON",
+          "jsonHeader": "读取为带表头的 JSON"
+        }
+      },
+      "javascriptCode": {
+        "runBeforeLoad": "在页面加载前运行",
+        "wrapLine": "自动换行"
+      },
+      "loopData": {
+        "placeholder": {
+          "selector": "CSS 选择器或 XPath"
+        },
+        "modal": {
+          "title": "数据"
+        }
+      },
+      "loopElements": {
+        "placeholder": {
+          "selector": "CSS 选择器或 XPath"
+        },
+        "maxWaitMoreElements": "等待更多元素的最长秒数",
+        "maxWaitPageLoad": "等待页面加载的最长秒数"
+      },
+      "newWindow": {
+        "typeLabel": "类型",
+        "typeOptions": {
+          "normal": "常规",
+          "popup": "弹出",
+          "panel": "面板"
+        },
+        "urlLabel": "URL（可选）"
+      },
+      "notification": {
+        "placeholder": {
+          "title": "你好，世界！",
+          "message": "通知消息"
+        }
+      },
+      "pressKey": {
+        "placeholder": {
+          "selector": "CSS 选择器或 XPath",
+          "keys": "按键"
+        }
+      },
+      "proxy": {
+        "portLabel": "端口",
+        "supportedProtocols": "支持的协议：http、https、socks4 和 socks5"
+      },
+      "switchTab": {
+        "findTabBy": "查找标签页方式",
+        "indexLabel": "索引",
+        "items": {
+          "tabTitle": "标签页标题",
+          "nextTab": "下一个标签页",
+          "prevTab": "上一个标签页",
+          "tabIndex": "标签页索引"
+        }
+      },
+      "switchTo": {
+        "placeholder": {
+          "selector": "CSS 选择器或 XPath"
+        }
+      },
+      "takeScreenshot": {
+        "typePlaceholder": "格式类型"
+      },
+      "uploadFile": {
+        "placeholder": {
+          "path": "URL/文件路径/base64"
+        }
+      },
+      "webhook": {
+        "placeholder": {
+          "header": "请求头 {n}",
+          "value": "值"
+        },
+        "responseType": "响应类型",
+        "items": {
+          "text": "文本"
+        },
+        "dataPath": "数据路径",
+        "assignColumns": "[分配列]"
+      },
+      "workflowState": {
+        "exceptCurrent": "排除当前工作流",
+        "placeholder": {
+          "selectWorkflow": "选择工作流"
+        },
+        "items": {
+          "stopAll": "停止所有工作流",
+          "stopCurrent": "停止当前工作流",
+          "stopSpecific": "停止指定工作流"
+        }
       }
     }
   },

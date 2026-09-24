@@ -11,11 +11,15 @@
       variant="accent"
       @click="showModal = !showModal"
     >
-      Insert data ({{ dataList.length }})
+      {{
+        t('workflow.edit.insertData.insertDataCount', {
+          count: dataList.length,
+        })
+      }}
     </ui-button>
     <ui-modal
       v-model="showModal"
-      title="Insert data"
+      :title="t('workflow.blocks.insert-data.name')"
       padding="p-0"
       content-class="max-w-3xl insert-data-modal"
     >
@@ -75,7 +79,9 @@
                   v-model="item.filePath"
                   class="w-full"
                   :placeholder="
-                    isFirefox ? 'File URL' : 'File absolute path/File URL'
+                    isFirefox
+                      ? t('workflow.edit.insertData.fileUrl')
+                      : t('workflow.edit.insertData.filePathOrUrl')
                   "
                 />
               </edit-autocomplete>
@@ -87,13 +93,13 @@
               >
                 <ui-input
                   v-model="item.xlsSheet"
-                  label="Sheet (optional)"
+                  :label="t('workflow.edit.insertData.sheetLabel')"
                   class="ml-2"
                   placeholder="Sheet1"
                 />
                 <ui-input
                   v-model="item.xlsRange"
-                  label="Range (optional)"
+                  :label="t('workflow.edit.insertData.rangeLabel')"
                   class="ml-2"
                   placeholder="A1:C10"
                 />
@@ -102,8 +108,8 @@
             <edit-autocomplete v-else class="w-full">
               <ui-textarea
                 v-model="item.value"
-                placeholder="value"
-                title="value"
+                :placeholder="t('workflow.edit.insertData.value')"
+                :title="t('workflow.edit.insertData.value')"
                 class="w-full"
               />
             </edit-autocomplete>
@@ -111,8 +117,8 @@
               <ui-button
                 v-tooltip="
                   hasFileAccess
-                    ? 'Import file'
-                    : 'Don\'t have access, click to learn more'
+                    ? t('workflow.edit.insertData.importFile')
+                    : t('workflow.edit.insertData.noFileAccess')
                 "
                 :class="{ 'text-primary': item.isFile }"
                 icon
@@ -122,11 +128,11 @@
               </ui-button>
               <template v-if="hasFileAccess && item.isFile">
                 <ui-button class="ml-2" @click="previewData(index, item)">
-                  Preview data
+                  {{ t('workflow.edit.insertData.previewData') }}
                 </ui-button>
                 <ui-button
                   v-if="previewState.itemId === index"
-                  v-tooltip="'Clear preview'"
+                  v-tooltip="t('workflow.edit.insertData.clearPreview')"
                   class="ml-2"
                   icon
                   @click="clearPreview"
@@ -136,18 +142,24 @@
                 <div class="grow" />
                 <ui-select
                   :model-value="item.action || item.csvAction"
-                  placeholder="File Action"
+                  :placeholder="t('workflow.edit.insertData.fileAction')"
                   @change="item.action = $event"
                 >
-                  <option value="default">Default</option>
-                  <option value="base64">Read as base64</option>
+                  <option value="default">
+                    {{ t('workflow.edit.insertData.actions.default') }}
+                  </option>
+                  <option value="base64">
+                    {{ t('workflow.edit.insertData.actions.base64') }}
+                  </option>
                   <optgroup
                     v-if="/.(csv|xlsx?)$/.test(item.filePath)"
-                    label="CSV/Excel File"
+                    :label="t('workflow.edit.insertData.actions.csvExcel')"
                   >
-                    <option value="json">Read as JSON</option>
+                    <option value="json">
+                      {{ t('workflow.edit.insertData.actions.json') }}
+                    </option>
                     <option value="json-header">
-                      Read as JSON with headers
+                      {{ t('workflow.edit.insertData.actions.jsonHeader') }}
                     </option>
                   </optgroup>
                 </ui-select>

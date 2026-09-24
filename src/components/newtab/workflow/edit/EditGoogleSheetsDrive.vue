@@ -1,13 +1,13 @@
 <template>
   <div v-if="!store.integrations.googleDrive">
     <p>
-      You haven't
+      {{ t('workflow.edit.googleSheetsDrive.notConnectedPrefix') }}
       <a
         href="https://docs.automa.site/integrations/google-drive.html"
         target="_blank"
         class="underline"
-        >connected Automa to Google Drive</a
-      >.
+        >{{ t('workflow.edit.googleSheetsDrive.notConnectedLink') }}</a
+      >{{ t('workflow.edit.googleSheetsDrive.notConnectedSuffix') }}
     </p>
   </div>
   <edit-google-sheets
@@ -26,8 +26,12 @@
       type="fill"
       @change="updateData({ inputSpreadsheetId: $event })"
     >
-      <ui-tab value="connected"> Connected </ui-tab>
-      <ui-tab value="manually"> Manually </ui-tab>
+      <ui-tab value="connected">
+        {{ t('workflow.edit.googleSheetsDrive.tabs.connected') }}
+      </ui-tab>
+      <ui-tab value="manually">
+        {{ t('workflow.blocks.trigger.items.manual') }}
+      </ui-tab>
     </ui-tabs>
     <div
       v-if="data.type !== 'create' && data.inputSpreadsheetId === 'connected'"
@@ -60,8 +64,8 @@
     <ui-input
       v-if="['create', 'add-sheet'].includes(data.type)"
       :model-value="data.sheetName"
-      label="Sheet name"
-      placeholder="A Spreadsheet"
+      :label="t('workflow.edit.googleSheetsDrive.sheetName.label')"
+      :placeholder="t('workflow.edit.googleSheetsDrive.sheetName.placeholder')"
       class="w-full"
       @change="updateData({ sheetName: $event })"
     />
@@ -104,7 +108,9 @@ async function connectSheet() {
     const file = await openGDrivePickerPopup(sessionToken.access);
     if (!file) return;
     if (file.mimeType !== 'application/vnd.google-apps.spreadsheet') {
-      toast.error('File is not a google spreadsheet');
+      toast.error(
+        t('workflow.edit.googleSheetsDrive.toast.fileNotSpreadsheet')
+      );
       return;
     }
     const sheetExists = store.connectedSheets.some(

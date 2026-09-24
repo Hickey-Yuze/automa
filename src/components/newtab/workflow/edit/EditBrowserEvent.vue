@@ -39,12 +39,12 @@
         @change="updateData({ tabLoadedUrl: $event })"
       >
         <template #label>
-          <span>Match pattern</span>
+          <span>{{ t('workflow.edit.browserEvent.matchPattern') }}</span>
           <a
             href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Match_patterns#examples"
             target="_blank"
             rel="noopener"
-            title="Examples"
+            :title="t('workflow.edit.browserEvent.examples')"
           >
             <v-remixicon
               class="ml-1 inline-block"
@@ -66,9 +66,9 @@
       <ui-input
         :model-value="data.tabUrl"
         type="url"
-        label="Filter"
+        :label="t('log.filter.title')"
         class="mt-1 w-full"
-        placeholder="URL or Regex"
+        :placeholder="t('workflow.blocks.trigger.forms.url')"
         @change="updateData({ tabUrl: $event })"
       />
       <ui-checkbox
@@ -95,14 +95,26 @@ const emit = defineEmits(['update:data']);
 const { t } = useI18n();
 
 const browserEvents = {
-  Tab: [
-    { id: 'tab:close', name: 'Tab closed' },
-    { id: 'tab:loaded', name: 'Tab loaded' },
-    { id: 'tab:create', name: 'Tab created' },
+  [t('workflow.edit.browserEvent.groups.tab')]: [
+    { id: 'tab:close', name: t('workflow.edit.browserEvent.events.tabClosed') },
+    {
+      id: 'tab:loaded',
+      name: t('workflow.edit.browserEvent.events.tabLoaded'),
+    },
+    {
+      id: 'tab:create',
+      name: t('workflow.edit.browserEvent.events.tabCreated'),
+    },
   ],
-  Window: [
-    { id: 'window:create', name: 'Window created' },
-    { id: 'window:close', name: 'Window closed' },
+  [t('workflow.edit.browserEvent.groups.window')]: [
+    {
+      id: 'window:create',
+      name: t('workflow.edit.browserEvent.events.windowCreated'),
+    },
+    {
+      id: 'window:close',
+      name: t('workflow.edit.browserEvent.events.windowClosed'),
+    },
   ],
 };
 

@@ -8,7 +8,7 @@
     />
     <ui-select
       :model-value="data.type"
-      label="Action"
+      :label="t('workflow.blocks.base.action')"
       class="mt-4 w-full"
       @change="updateData({ type: $event })"
     >
@@ -28,7 +28,7 @@
       class="mt-2"
       @change="updateData({ exceptCurrent: $event })"
     >
-      Execpt for the current workflow
+      {{ t('workflow.edit.workflowState.exceptCurrent') }}
     </ui-checkbox>
     <!-- 停止当前工作流 是否抛出错误及自定义错误信息 -->
     <template v-if="data.type === 'stop-current'">
@@ -85,7 +85,9 @@
         <input
           v-model="query"
           type="text"
-          placeholder="Select a workflow"
+          :placeholder="
+            t('workflow.edit.workflowState.placeholder.selectWorkflow')
+          "
           class="w-full rounded-lg bg-transparent py-2 px-4"
         />
       </ui-autocomplete>
@@ -116,9 +118,15 @@ const actions = [
 ];
 const actionsItems = {
   stop: [
-    { id: 'stop-all', name: 'Stop all workflows' },
-    { id: 'stop-current', name: 'Stop current workflow' },
-    { id: 'stop-specific', name: 'Stop specific workflows' },
+    { id: 'stop-all', name: t('workflow.edit.workflowState.items.stopAll') },
+    {
+      id: 'stop-current',
+      name: t('workflow.edit.workflowState.items.stopCurrent'),
+    },
+    {
+      id: 'stop-specific',
+      name: t('workflow.edit.workflowState.items.stopSpecific'),
+    },
   ],
 };
 

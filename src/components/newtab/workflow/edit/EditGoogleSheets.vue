@@ -48,13 +48,13 @@
       rel="noopener"
       class="ml-1 inline-block text-sm leading-tight"
     >
-      Automa doesn't have access to the spreadsheet.
+      {{ t('workflow.edit.googleSheets.noAccessToSpreadsheet') }}
       <a
         href="https://docs.extension.automa.site/blocks/google-sheets.html#access-to-spreadsheet"
         target="_blank"
         rel="noopener"
       >
-        Click here to read more.
+        {{ t('workflow.edit.googleSheets.clickHereToReadMore') }}
         <v-remixicon name="riInformationLine" size="18" class="inline" />
       </a>
     </a>
@@ -224,7 +224,7 @@
     />
     <ui-modal
       v-model="customDataState.showModal"
-      title="Custom data"
+      :title="t('workflow.blocks.loop-data.loopThrough.options.custom-data')"
       content-class="max-w-xl"
     >
       <shared-codemirror
@@ -295,7 +295,7 @@ const state = shallowReactive({
 const checkPermission = debounce(async (value) => {
   try {
     if (!value.trim()) {
-      toast.error('Spreadsheet id is empty');
+      toast.error(t('log.messages.empty-spreadsheet-id'));
       return;
     }
 
@@ -305,7 +305,7 @@ const checkPermission = debounce(async (value) => {
       value.startsWith('www.') ||
       value.includes('docs.google.com')
     ) {
-      toast.error('Spreadsheet id is invalid');
+      toast.error(t('workflow.edit.googleSheets.spreadsheetIdInvalid'));
       return;
     }
 
@@ -338,8 +338,8 @@ async function previewData() {
     if (!props.data.spreadsheetId.trim()) {
       toast.error(
         props.googleDrive
-          ? 'No spreadsheet is selected'
-          : 'Spreadsheet id is empty'
+          ? t('workflow.edit.googleSheets.noSpreadsheetSelected')
+          : t('log.messages.empty-spreadsheet-id')
       );
       previewDataState.status = 'idle';
       return;
@@ -349,13 +349,13 @@ async function previewData() {
       props.data.spreadsheetId.includes('http') ||
       props.data.spreadsheetId.includes('spreadsheets')
     ) {
-      toast.error('Spreadsheet Id is invalid, please check it');
+      toast.error(t('workflow.edit.googleSheets.spreadsheetIdInvalidCheck'));
       previewDataState.status = 'idle';
       return;
     }
 
     if (!props.data.range) {
-      toast.error('Spreadsheet range is empty');
+      toast.error(t('log.messages.empty-spreadsheet-range'));
       previewDataState.status = 'idle';
       return;
     }

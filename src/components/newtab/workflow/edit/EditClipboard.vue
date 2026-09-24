@@ -26,7 +26,7 @@
         <ui-textarea
           v-if="!data.copySelectedText"
           :model-value="data.dataToCopy"
-          placeholder="Text"
+          :placeholder="t('workflow.edit.clipboard.placeholder.text')"
           class="mt-4"
           @change="updateData({ dataToCopy: $event })"
         />

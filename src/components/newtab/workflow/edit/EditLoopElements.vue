@@ -51,7 +51,7 @@
         <ui-input
           :model-value="data.actionElSelector"
           :label="t('workflow.blocks.base.selector')"
-          placeholder="CSS Selector or XPath"
+          :placeholder="t('workflow.edit.loopElements.placeholder.selector')"
           class="mr-2 flex-1"
           autocomplete="off"
           @change="updateData({ actionElSelector: $event })"
@@ -66,7 +66,7 @@
           ['click-element', 'scroll', 'scroll-up'].includes(data.loadMoreAction)
         "
         :model-value="data.actionElMaxWaitTime"
-        label="Max seconds wait for more elements"
+        :label="t('workflow.edit.loopElements.maxWaitMoreElements')"
         class="mt-2 w-full"
         placeholder="0"
         type="number"
@@ -91,7 +91,7 @@
       <ui-input
         v-if="data.loadMoreAction === 'click-link'"
         :model-value="data.actionPageMaxWaitTime"
-        label="Max seconds wait for the page to load"
+        :label="t('workflow.edit.loopElements.maxWaitPageLoad')"
         class="mt-2 w-full"
         placeholder="0"
         type="number"

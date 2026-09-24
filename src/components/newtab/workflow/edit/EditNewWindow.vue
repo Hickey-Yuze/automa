@@ -9,17 +9,17 @@
     <ui-select
       :model-value="data.type"
       class="mt-4 w-full"
-      label="Type"
+      :label="t('workflow.edit.newWindow.typeLabel')"
       @change="updateData({ type: $event })"
     >
       <option v-for="type in windowType" :key="type" :value="type">
-        {{ type }}
+        {{ t(`workflow.edit.newWindow.typeOptions.${type}`) }}
       </option>
     </ui-select>
     <ui-input
       :model-value="data.url"
       class="mt-2 w-full"
-      label="URL (optional)"
+      :label="t('workflow.edit.newWindow.urlLabel')"
       placeholder="https://example.com"
       @change="updateData({ url: $event })"
     />

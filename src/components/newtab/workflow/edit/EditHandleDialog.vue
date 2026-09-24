@@ -20,7 +20,7 @@
         :label="t('workflow.blocks.handle-dialog.promptText.label')"
         :title="t('workflow.blocks.handle-dialog.promptText.description')"
         autocomplete="off"
-        placeholder="Text"
+        :placeholder="t('workflow.edit.handleDialog.placeholder.promptText')"
         class="w-full"
         @change="updateData({ promptText: $event })"
       />

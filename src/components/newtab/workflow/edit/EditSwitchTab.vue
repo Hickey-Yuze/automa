@@ -8,7 +8,7 @@
     />
     <ui-select
       :model-value="data.findTabBy"
-      label="Find tab by"
+      :label="t('workflow.edit.switchTab.findTabBy')"
       class="mb-2 mt-3 w-full"
       @change="updateData({ findTabBy: $event })"
     >
@@ -45,7 +45,7 @@
       <edit-autocomplete v-else-if="data.findTabBy === 'tab-title'">
         <ui-input
           :model-value="data.tabTitle"
-          label="Tab title"
+          :label="t('workflow.edit.switchTab.items.tabTitle')"
           class="w-full"
           @change="updateData({ tabTitle: $event })"
         />
@@ -70,7 +70,7 @@
     <ui-input
       v-else-if="data.findTabBy === 'tab-index'"
       :model-value="data.tabIndex"
-      label="Index"
+      :label="t('workflow.edit.switchTab.indexLabel')"
       type="number"
       class="w-full"
       min="0"
@@ -99,11 +99,11 @@ const emit = defineEmits(['update:data']);
 
 const { t } = useI18n();
 const types = [
-  { id: 'match-patterns', name: 'Match patterns' },
-  { id: 'tab-title', name: 'Tab title' },
-  { id: 'next-tab', name: 'Next tab' },
-  { id: 'prev-tab', name: 'Previous tab' },
-  { id: 'tab-index', name: 'Tab index' },
+  { id: 'match-patterns', name: t('workflow.blocks.switch-tab.matchPattern') },
+  { id: 'tab-title', name: t('workflow.edit.switchTab.items.tabTitle') },
+  { id: 'next-tab', name: t('workflow.edit.switchTab.items.nextTab') },
+  { id: 'prev-tab', name: t('workflow.edit.switchTab.items.prevTab') },
+  { id: 'tab-index', name: t('workflow.edit.switchTab.items.tabIndex') },
 ];
 
 function updateData(value) {

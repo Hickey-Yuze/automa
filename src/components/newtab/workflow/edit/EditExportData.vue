@@ -45,9 +45,9 @@
         <ui-input
           :model-value="data.name"
           autocomplete="off"
-          label="File name"
+          :label="t('common.fileName')"
           class="w-full"
-          placeholder="unnamed"
+          :placeholder="t('workflow.edit.exportData.placeholder.name')"
           @change="updateData({ name: $event })"
         />
       </edit-autocomplete>
@@ -68,7 +68,7 @@
         @change="updateData({ type: $event })"
       >
         <option v-for="type in dataExportTypes" :key="type.id" :value="type.id">
-          {{ type.name }}
+          {{ t(`workflow.edit.exportData.types.${type.id}`) }}
         </option>
       </ui-select>
       <ui-expand
@@ -94,7 +94,7 @@
           </ui-checkbox>
           <ui-input
             :model-value="data.csvDelimiter"
-            label="Delimiter"
+            :label="t('workflow.edit.exportData.delimiter')"
             class="mt-1"
             placeholder=","
             @change="updateData({ csvDelimiter: $event })"
