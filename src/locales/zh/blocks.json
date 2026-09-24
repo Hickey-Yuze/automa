@@ -102,6 +102,10 @@
           }
         }
       },
+      "ai-workflow": {
+        "name": "AI 工作流",
+        "description": "由 AI 生成的工作流"
+      },
       "wait-connections": {
         "name": "等待连接",
         "description": "在继续下一个模块之前等待所有连接",
@@ -438,11 +442,13 @@
         },
         "spreadsheetId": {
           "label": "电子表格 Id",
-          "link": "查看如何获取电子表格 Id"
+          "link": "查看如何获取电子表格 Id",
+          "required": "必须填写电子表格 Id"
         },
         "range": {
           "label": "范围",
-          "link": "点击查看更多示例"
+          "link": "点击查看更多示例",
+          "required": "必须填写范围"
         },
         "select": {
           "get": "获取电子表格单元格值",

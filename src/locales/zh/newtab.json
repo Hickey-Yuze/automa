@@ -64,7 +64,7 @@
       "title": "上下文菜单",
       "description": "通过上下文菜单执行工作流"
     },
-    "clipboard": {
+    "clipboardRead": {
       "title": "剪贴板",
       "description": "用于访问剪贴板数据"
     },
@@ -147,8 +147,28 @@
       "backup": "备份工作流",
       "editor": "编辑器",
       "general": "常规",
+      "profile": "个人资料",
       "shortcuts": "快捷键",
       "about": "关于"
+    },
+    "profile": {
+      "title": "个人资料",
+      "loading": "正在加载个人资料...",
+      "signedInAs": "已登录为",
+      "signIn": "登录",
+      "signInDesc": "登录以备份工作流并使用云端功能",
+      "signOut": "退出登录",
+      "signingOut": "正在退出登录...",
+      "signedOut": "你已退出登录",
+      "signOutConfirmTitle": "确定要退出吗？",
+      "signOutConfirmMessage": "退出登录将移除本设备上的全部登录凭据和本地会话，你的工作流仍会保留在设备上。",
+      "warningMessage": "此操作只会从当前设备退出你的账号。",
+      "signOutNote": "你可以随时重新登录以恢复云端功能。",
+      "notSignedIn": "尚未登录",
+      "teamsCount": "{count} 个团队",
+      "avatar": "头像",
+      "username": "用户名",
+      "email": "邮箱"
     },
     "backupWorkflows": {
       "title": "本地备份",
