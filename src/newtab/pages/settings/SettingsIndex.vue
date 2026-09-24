@@ -88,22 +88,99 @@
       />
     </div>
   </div>
+  <div id="python-bridge" class="mt-12">
+    <p class="mb-1 font-semibold">Python 桥接（本机执行 Python 代码块）</p>
+    <p class="mb-2 text-sm text-gray-600 dark:text-gray-200">
+      先在本机启动桥接服务：<code>python3 automa-bridge/server.py</code>， token
+      自动生成于 <code>~/.automa-bridge/token</code>，把文件内容粘贴到下面。
+    </p>
+    <div class="flex items-start">
+      <div class="w-80 space-y-2">
+        <ui-input
+          :model-value="bridgeConfig.token"
+          type="password"
+          label="Token"
+          placeholder="粘贴 ~/.automa-bridge/token 的内容"
+          @change="updateBridgeConfig({ token: $event.trim() })"
+        />
+        <ui-input
+          :model-value="bridgeConfig.port"
+          type="number"
+          label="端口（默认 27182）"
+          @change="updateBridgeConfig({ port: +$event || 27182 })"
+        />
+      </div>
+      <div class="ml-4">
+        <ui-button
+          variant="accent"
+          :disabled="state.pinging"
+          @click="pingBridgeAction"
+        >
+          {{ state.pinging ? '测试中...' : '测试连接' }}
+        </ui-button>
+        <p v-if="state.pingResult" class="mt-2 text-sm">
+          {{ state.pingResult }}
+        </p>
+      </div>
+    </div>
+  </div>
 </template>
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, reactive, ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useToast } from 'vue-toastification';
 import { useStore } from '@/stores/main';
 import { useTheme } from '@/composable/theme';
 import { supportLocales } from '@/utils/shared';
+import {
+  getBridgeConfig,
+  setBridgeConfig,
+  pingBridge,
+} from '@/automation/python/bridgeClient';
 
 const deleteLogDays = ['never', 7, 14, 30, 60, 120];
 
 const { t } = useI18n();
+const toast = useToast();
 const store = useStore();
 const theme = useTheme();
 
 const isLangChange = ref(false);
 const settings = computed(() => store.settings);
+
+const bridgeConfig = ref({ token: '', port: 27182 });
+const state = reactive({ pinging: false, pingResult: '' });
+
+onMounted(async () => {
+  bridgeConfig.value = await getBridgeConfig();
+});
+
+async function updateBridgeConfig(patch) {
+  bridgeConfig.value = await setBridgeConfig(patch);
+}
+
+async function pingBridgeAction() {
+  state.pinging = true;
+  state.pingResult = '';
+
+  try {
+    const result = await pingBridge();
+    state.pingResult = `✅ 连接成功，本机 Python ${result.python}`;
+    toast.success(state.pingResult);
+  } catch (err) {
+    const messages = {
+      'bridge-no-token': '❌ 未填写 token',
+      'bridge-auth':
+        '❌ token 校验失败，请检查与 ~/.automa-bridge/token 是否一致',
+    };
+    const msg =
+      messages[err?.message] || '❌ 连接失败：桥接服务未启动或端口不对';
+    state.pingResult = msg;
+    toast.error(msg);
+  } finally {
+    state.pinging = false;
+  }
+}
 
 function updateSetting(path, value) {
   store.updateSettings({ [path]: value });

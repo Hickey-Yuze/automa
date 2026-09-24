@@ -642,6 +642,28 @@
         "times": "times",
         "repeatFrom": "Repeat from"
       },
+      "python-code": {
+        "name": "Python code",
+        "description": "Execute your Python code",
+        "availabeFuncs": "Available functions:",
+        "channel": {
+          "name": "Execution channel",
+          "items": {
+            "auto": "Auto (local bridge first, fallback to in-browser)",
+            "bridge": "Local bridge only",
+            "pyodide": "In-browser only (Pyodide)"
+          }
+        },
+        "modal": {
+          "tabs": {
+            "code": "Python code"
+          }
+        },
+        "timeout": {
+          "placeholder": "Timeout (milliseconds)",
+          "title": "Python code execution timeout"
+        }
+      },
       "javascript-code": {
         "name": "JavaScript code",
         "description": "Execute your JavaScript code in the web page",

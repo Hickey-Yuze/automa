@@ -636,6 +636,28 @@
         "times": "次数",
         "repeatFrom": "重复自"
       },
+      "python-code": {
+        "name": "Python 代码",
+        "description": "执行您的 Python 代码",
+        "availabeFuncs": "可用函数:",
+        "channel": {
+          "name": "运行通道",
+          "items": {
+            "auto": "自动（本机桥接优先，失败降级浏览器内）",
+            "bridge": "仅本机桥接",
+            "pyodide": "仅浏览器内（Pyodide）"
+          }
+        },
+        "modal": {
+          "tabs": {
+            "code": "Python 代码"
+          }
+        },
+        "timeout": {
+          "placeholder": "超时（毫秒）",
+          "title": "Python 代码执行超时"
+        }
+      },
       "javascript-code": {
         "name": "JavaScript 代码",
         "description": "在网页中执行您的 javascript 代码",
