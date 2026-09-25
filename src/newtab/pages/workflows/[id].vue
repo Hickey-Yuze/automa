@@ -1594,7 +1594,8 @@ function onBeforeLeave() {
 
 useHead({
   title: () =>
-    `${workflow.value?.name} ${isPackage ? 'package' : 'workflow'}` || 'Automa',
+    `${workflow.value?.name} ${isPackage ? 'package' : 'workflow'}` ||
+    'Yuze Auto',
 });
 const shortcut = useShortcut([
   getShortcut('editor:toggle-sidebar', toggleSidebar),
