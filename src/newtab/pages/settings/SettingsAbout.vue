@@ -1,14 +1,12 @@
 <template>
   <div class="max-w-lg">
     <div class="bg-box-transparent mb-2 inline-block rounded-full p-3">
-      <img src="@/assets/svg/logo.svg" class="w-14" />
+      <img src="@/assets/images/icon-128.png" class="w-14 rounded-full" />
     </div>
-    <p class="text-2xl font-semibold">Automa</p>
-    <p class="mb-2 mt-1">Version: {{ extensionVersion }}</p>
+    <p class="text-2xl font-semibold">Yuze Auto</p>
+    <p class="mb-2 mt-1">版本：{{ extensionVersion }}</p>
     <p class="text-gray-600 dark:text-gray-200">
-      Automa is a chrome extension for browser automation. From auto-fill forms,
-      doing a repetitive task, taking a screenshot, to scraping data of the
-      website, it's up to you what you want to do with this extension.
+      浏览器自动化扩展：自动填写表单、执行重复任务、截图、抓取网页数据——想用它做什么都可以。
     </p>
     <div class="mt-4 space-x-2">
       <a

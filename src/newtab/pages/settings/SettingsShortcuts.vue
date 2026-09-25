@@ -117,7 +117,7 @@ const recording = reactive({
 
 // 快捷键分组与条目的中文名（id 是英文短语，运行时生成，无 i18n key）
 const CATEGORY_NAMES = {
-  automa: 'Automa',
+  automa: 'Yuze Auto',
   page: '页面',
   action: '操作',
   editor: '编辑器',
