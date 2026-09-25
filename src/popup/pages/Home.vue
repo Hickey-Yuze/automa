@@ -109,7 +109,7 @@
       class="flex items-center"
     >
       <ui-select v-model="state.activeFolder" class="flex-1">
-        <option value="">Folder (all)</option>
+        <option value="">文件夹（全部）</option>
         <option
           v-for="folder in folderStore.items"
           :key="folder.id"
@@ -122,13 +122,13 @@
         <template #trigger>
           <ui-button>
             <v-remixicon name="riSortDesc" class="mr-2 -ml-1" />
-            <span>Sort</span>
+            <span>排序</span>
           </ui-button>
         </template>
         <div class="w-48">
-          <ui-select v-model="sortState.order" block placeholder="Sort order">
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
+          <ui-select v-model="sortState.order" block placeholder="排序方式">
+            <option value="asc">升序</option>
+            <option value="desc">降序</option>
           </ui-select>
           <ui-select
             v-model="sortState.by"
