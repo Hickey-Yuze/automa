@@ -67,6 +67,7 @@ export async function pythonCode({ data, ...block }, { refData }) {
   const snapshot = {
     variables: cloneDeep(prevVariables),
     table: cloneDeep(this.engine.referenceData.table || []),
+    loopData: cloneDeep(refData.loopData || {}),
   };
 
   let executed;

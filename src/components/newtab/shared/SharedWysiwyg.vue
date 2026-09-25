@@ -11,7 +11,7 @@
             level: 1,
           }),
         }"
-        title="Heading 1"
+        :title="t('workflow.shared.wysiwyg.heading1')"
         class="editor-menu-btn hoverable"
         @click="editor.commands.toggleHeading({ level: 1 })"
       >
@@ -23,7 +23,7 @@
             level: 2,
           }),
         }"
-        title="Heading 2"
+        :title="t('workflow.shared.wysiwyg.heading2')"
         class="editor-menu-btn hoverable"
         @click="editor.commands.toggleHeading({ level: 2 })"
       >
@@ -53,14 +53,14 @@
         :class="{
           'bg-box-transparent text-primary': editor.isActive('blockquote'),
         }"
-        title="Blockquote"
+        :title="t('workflow.shared.wysiwyg.blockquote')"
         class="editor-menu-btn hoverable"
         @click="editor.commands.toggleBlockquote()"
       >
         <v-remixicon name="riDoubleQuotesL" />
       </button>
       <button
-        title="Insert image"
+        :title="t('workflow.shared.wysiwyg.insertImage')"
         class="editor-menu-btn hoverable"
         @click="insertImage(editor)"
       >
@@ -70,7 +70,7 @@
         :class="{
           'bg-box-transparent text-primary': editor.isActive('link'),
         }"
-        title="Link"
+        :title="t('workflow.shared.wysiwyg.link')"
         class="editor-menu-btn hoverable"
         @click="setLink(editor)"
       >
@@ -78,7 +78,7 @@
       </button>
       <button
         v-show="editor.isActive('link')"
-        title="Remove link"
+        :title="t('workflow.shared.wysiwyg.removeLink')"
         class="editor-menu-btn hoverable"
         @click="editor.commands.unsetLink()"
       >
@@ -97,6 +97,7 @@ import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 import Placeholder from '@tiptap/extension-placeholder';
 import CharacterCount from '@tiptap/extension-character-count';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -123,13 +124,25 @@ const props = defineProps({
 });
 const emit = defineEmits(['update:modelValue', 'count', 'change']);
 
+const { t } = useI18n();
+
 const editor = shallowRef(null);
 const menuItems = [
-  { id: 'bold', name: 'Bold', icon: 'riBold', action: 'toggleBold' },
-  { id: 'italic', name: 'Italic', icon: 'riItalic', action: 'toggleItalic' },
+  {
+    id: 'bold',
+    name: t('workflow.shared.wysiwyg.bold'),
+    icon: 'riBold',
+    action: 'toggleBold',
+  },
+  {
+    id: 'italic',
+    name: t('workflow.shared.wysiwyg.italic'),
+    icon: 'riItalic',
+    action: 'toggleItalic',
+  },
   {
     id: 'strike',
-    name: 'Strikethrough',
+    name: t('workflow.shared.wysiwyg.strikethrough'),
     icon: 'riStrikethrough2',
     action: 'toggleStrike',
   },

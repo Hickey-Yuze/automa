@@ -60,6 +60,26 @@ export const yuzeFuncsSnippets = [
     info: () => doc('yuze.add_row(<i>row</i>)', '向表格末尾追加一行（字典）'),
   },
   {
+    label: 'yuze.get_loop_data',
+    type: 'function',
+    apply: 'yuze.get_loop_data(${loop_id})',
+    info: () =>
+      doc(
+        'yuze.get_loop_data(<i>loop_id=None</i>)',
+        '读取循环上下文的当前项（在「循环数据」块内使用）；无循环返回 None，多个循环需传 loop_id'
+      ),
+  },
+  {
+    label: 'yuze.get_loop_index',
+    type: 'function',
+    apply: 'yuze.get_loop_index(${loop_id})',
+    info: () =>
+      doc(
+        'yuze.get_loop_index(<i>loop_id=None</i>)',
+        '读取循环当前索引（从 0 开始）；无循环返回 None，多个循环需传 loop_id'
+      ),
+  },
+  {
     label: 'yuze.next_block',
     type: 'function',
     apply: 'yuze.next_block(data=${data})',

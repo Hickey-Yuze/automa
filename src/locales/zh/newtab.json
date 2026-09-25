@@ -762,6 +762,30 @@
           "stopSpecific": "停止指定工作流"
         }
       }
+    },
+    "shared": {
+      "wysiwyg": {
+        "heading1": "标题 1",
+        "heading2": "标题 2",
+        "bold": "加粗",
+        "italic": "斜体",
+        "strikethrough": "删除线",
+        "blockquote": "引用",
+        "insertImage": "插入图片",
+        "link": "链接",
+        "removeLink": "移除链接"
+      },
+      "workflowState": {
+        "startedAt": "开始于：{time}",
+        "openTab": "打开标签页"
+      },
+      "workflowTriggers": {
+        "addTrigger": "添加触发器"
+      },
+      "logsTable": {
+        "stopSelected": "停止所选",
+        "executingBlock": "正在执行的区块"
+      }
     }
   },
   "collection": {

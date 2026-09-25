@@ -74,6 +74,7 @@ def execute_payload(payload):
     data = payload.get("data") or {}
     variables = data.get("variables") or {}
     table = data.get("table") or []
+    loop_data = data.get("loopData") or {}
 
     namespace = {"__name__": "__yuze_host__"}
 
@@ -81,7 +82,7 @@ def execute_payload(payload):
 
     # 1) 注入 yuze API（单一真源随请求下发）
     exec(compile(prelude, "<yuze-prelude>", "exec"), namespace)
-    namespace["_yuze_init"](variables, table)
+    namespace["_yuze_init"](variables, table, loop_data)
 
     # 2) 执行用户代码，捕获 stdout/stderr
     stdout_buf = io.StringIO()

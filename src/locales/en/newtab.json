@@ -762,6 +762,30 @@
           "stopSpecific": "Stop specific workflows"
         }
       }
+    },
+    "shared": {
+      "wysiwyg": {
+        "heading1": "Heading 1",
+        "heading2": "Heading 2",
+        "bold": "Bold",
+        "italic": "Italic",
+        "strikethrough": "Strikethrough",
+        "blockquote": "Blockquote",
+        "insertImage": "Insert image",
+        "link": "Link",
+        "removeLink": "Remove link"
+      },
+      "workflowState": {
+        "startedAt": "Started at: {time}",
+        "openTab": "Open tab"
+      },
+      "workflowTriggers": {
+        "addTrigger": "Add trigger"
+      },
+      "logsTable": {
+        "stopSelected": "Stop selected",
+        "executingBlock": "Executing block"
+      }
     }
   },
   "collection": {

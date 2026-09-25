@@ -14,13 +14,16 @@ import sys as _yuze_sys
 import copy as _yuze_copy
 
 _yuze_snapshot = {"variables": {}, "table": [], "logs": [], "next": None}
+_yuze_loop_data = {}
 
 
-def _yuze_init(variables, table):
+def _yuze_init(variables, table, loop_data=None):
     _yuze_snapshot["variables"] = variables if isinstance(variables, dict) else {}
     _yuze_snapshot["table"] = table if isinstance(table, list) else []
     _yuze_snapshot["logs"] = []
     _yuze_snapshot["next"] = None
+    global _yuze_loop_data
+    _yuze_loop_data = loop_data if isinstance(loop_data, dict) else {}
 
 
 def get_var(name, default=None):
@@ -64,6 +67,32 @@ def log(*parts):
     _yuze_snapshot["logs"].append(text)
 
 
+def get_loop_data(loop_id=None):
+    """读取循环上下文的当前项（在「循环数据」块内使用；无循环返回 None，多个循环需传 loop_id）"""
+    if not _yuze_loop_data:
+        return None
+    if loop_id is None:
+        if len(_yuze_loop_data) > 1:
+            raise ValueError("检测到多个循环，请传入 loop_id")
+        info = next(iter(_yuze_loop_data.values()))
+    else:
+        info = _yuze_loop_data.get(loop_id)
+    return info.get("data") if info else None
+
+
+def get_loop_index(loop_id=None):
+    """读取循环当前索引（从 0 开始；无循环返回 None，多个循环需传 loop_id）"""
+    if not _yuze_loop_data:
+        return None
+    if loop_id is None:
+        if len(_yuze_loop_data) > 1:
+            raise ValueError("检测到多个循环，请传入 loop_id")
+        info = next(iter(_yuze_loop_data.values()))
+    else:
+        info = _yuze_loop_data.get(loop_id)
+    return info.get("$index") if info else None
+
+
 def _yuze_dump():
     return _yuze_json.dumps(_yuze_snapshot, ensure_ascii=False, default=str)
 
@@ -79,6 +108,8 @@ yuze.__dict__.update(
         "add_row": add_row,
         "next_block": next_block,
         "log": log,
+        "get_loop_data": get_loop_data,
+        "get_loop_index": get_loop_index,
     }
 )
 _yuze_sys.modules["yuze"] = yuze
