@@ -1228,8 +1228,6 @@ export const tasks = {
     name: 'Notification',
     description: 'Display a notification',
     icon: 'riNotification3Line',
-    // 块级颜色覆盖（优先于分类色）：通知块用绿色，便于在画布上快速识别
-    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
     editComponent: 'EditNotification',
     component: 'BlockBasic',
     category: 'general',
@@ -1547,6 +1545,7 @@ export const tasks = {
   },
 };
 
+// 全部分类统一绿色（用户偏好：画布块图标统一绿色主题）
 export const categories = {
   interaction: {
     name: 'Web interaction',
@@ -1555,35 +1554,33 @@ export const categories = {
   },
   browser: {
     name: 'Browser',
-    border: 'border-orange-200 dark:border-orange-300',
-    color:
-      'bg-orange-200 dark:bg-orange-300 fill-orange-200 dark:fill-orange-300',
+    border: 'border-green-200 dark:border-green-300',
+    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
   },
   general: {
     name: 'General',
-    border: 'border-yellow-200 dark:border-yellow-300',
-    color:
-      'bg-yellow-200 dark:bg-yellow-300 fill-yellow-200 dark:fill-yellow-300',
+    border: 'border-green-200 dark:border-green-300',
+    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
   },
   onlineServices: {
     name: 'Online services',
-    border: 'border-red-200 dark:border-red-300',
-    color: 'bg-red-200 dark:bg-red-300 fill-red-200 dark:fill-red-300',
+    border: 'border-green-200 dark:border-green-300',
+    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
   },
   data: {
     name: 'Data',
-    border: 'border-lime-200 dark:border-lime-300',
-    color: 'bg-lime-200 dark:bg-lime-300 fill-lime-200 dark:fill-lime-300',
+    border: 'border-green-200 dark:border-green-300',
+    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
   },
   conditions: {
     name: 'Control flow',
-    border: 'border-blue-200 dark:border-blue-300',
-    color: 'bg-blue-200 dark:bg-blue-300 fill-blue-200 dark:fill-blue-300',
+    border: 'border-green-200 dark:border-green-300',
+    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
   },
   package: {
     name: 'Packages',
-    border: 'border-cyan-200 dark:border-cyan-300',
-    color: 'bg-cyan-200 dark:bg-cyan-300 fill-cyan-200 dark:fill-cyan-300',
+    border: 'border-green-200 dark:border-green-300',
+    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
   },
 };
 
