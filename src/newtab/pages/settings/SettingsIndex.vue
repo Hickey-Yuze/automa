@@ -88,6 +88,33 @@
       />
     </div>
   </div>
+  <div id="theme-color" class="mt-12">
+    <p class="mb-1 font-semibold">主题颜色（按钮/侧边栏等强调色）</p>
+    <p class="mb-2 text-sm text-gray-600 dark:text-gray-200">
+      选择预设色或自定义拾色，保存后立即生效
+    </p>
+    <div class="flex items-center gap-3">
+      <button
+        v-for="color in accentPresets"
+        :key="color"
+        :style="{ backgroundColor: color }"
+        :class="{
+          'ring-2 ring-gray-900 ring-offset-2 dark:ring-gray-100':
+            accentColor === color,
+        }"
+        class="h-8 w-8 rounded-full border border-gray-200 dark:border-gray-600"
+        :title="color"
+        @click="applyAccentColor(color)"
+      />
+      <input
+        type="color"
+        :value="accentColor"
+        class="h-8 w-12 cursor-pointer rounded border border-gray-200 bg-transparent dark:border-gray-600"
+        title="自定义颜色"
+        @change="applyAccentColor($event.target.value)"
+      />
+    </div>
+  </div>
   <div id="python-bridge" class="mt-12">
     <p class="mb-1 font-semibold">Python 桥接（本机执行 Python 代码块）</p>
     <p class="mb-2 text-sm text-gray-600 dark:text-gray-200">
@@ -192,6 +219,8 @@ const isLangChange = ref(false);
 const settings = computed(() => store.settings);
 
 const bridgeConfig = ref({ token: '', port: 27182 });
+const accentPresets = ['#16a34a', '#2563eb', '#9333ea', '#ea580c', '#dc2626'];
+const accentColor = ref('#16a34a');
 const aiChatConfig = ref({ baseUrl: '', apiKey: '', model: '' });
 const state = reactive({
   pinging: false,
@@ -264,6 +293,7 @@ function selectAiProvider(label) {
 onMounted(async () => {
   bridgeConfig.value = await getBridgeConfig();
   aiChatConfig.value = await getAiChatConfig();
+  accentColor.value = await theme.getAccentColor();
 
   const matched = aiProviders.find(
     (p) => p.baseUrl && p.baseUrl === aiChatConfig.value.baseUrl
@@ -275,6 +305,11 @@ onMounted(async () => {
   state.aiProviderPlaceholder =
     matched?.baseUrl || aiChatConfig.value.baseUrl || 'https://api.example.com';
 });
+
+function applyAccentColor(color) {
+  accentColor.value = color;
+  theme.setAccentColor(color);
+}
 
 async function updateBridgeConfig(patch) {
   bridgeConfig.value = await setBridgeConfig(patch);
