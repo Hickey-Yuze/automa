@@ -1,5 +1,17 @@
 <template>
+  <template v-if="wallpaper.image">
+    <img
+      :src="wallpaper.image"
+      :style="wallpaperStyle"
+      class="absolute top-0 left-0 h-full w-full object-cover"
+    />
+    <div
+      class="absolute top-0 left-0 h-full w-full"
+      :style="{ background: `rgba(0, 0, 0, ${wallpaper.dim})` }"
+    ></div>
+  </template>
   <div
+    v-else
     :class="[!showTab ? 'h-48' : 'h-56']"
     class="absolute top-0 left-0 w-full rounded-b-2xl bg-accent"
   ></div>
@@ -195,11 +207,27 @@ import { useUserStore } from '@/stores/user';
 import { useWorkflowStore } from '@/stores/workflow';
 import { arraySorter, parseJSON } from '@/utils/helper';
 import automa from '@business';
-import { computed, onMounted, shallowReactive, watch } from 'vue';
+import { computed, onMounted, reactive, shallowReactive, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import browser from 'webextension-polyfill';
 
 const isMV2 = browser.runtime.getManifest().manifest_version === 2;
+
+// 自定义壁纸（设置页「弹窗壁纸」配置），无壁纸时回退主题色背景
+const wallpaper = reactive({
+  image: '',
+  scale: 100,
+  x: 50,
+  y: 50,
+  dim: 0.55,
+});
+const wallpaperStyle = computed(() => ({
+  objectPosition: `${wallpaper.x}% ${wallpaper.y}%`,
+  transform: `scale(${wallpaper.scale / 100})`,
+}));
+browser.storage.local.get('popupWallpaper').then(({ popupWallpaper }) => {
+  if (popupWallpaper) Object.assign(wallpaper, popupWallpaper);
+});
 
 const { t } = useI18n();
 const dialog = useDialog();

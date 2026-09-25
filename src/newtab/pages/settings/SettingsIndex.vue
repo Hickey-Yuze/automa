@@ -115,6 +115,7 @@
       />
     </div>
   </div>
+  <popup-wallpaper />
   <div id="python-bridge" class="mt-12">
     <p class="mb-1 font-semibold">Python 桥接（本机执行 Python 代码块）</p>
     <p class="mb-2 text-sm text-gray-600 dark:text-gray-200">
@@ -207,6 +208,7 @@ import {
   pingBridge,
 } from '@/automation/python/bridgeClient';
 import { getAiChatConfig, setAiChatConfig } from '@/automation/ai/aiChatClient';
+import PopupWallpaper from '@/components/newtab/settings/PopupWallpaper.vue';
 
 const deleteLogDays = ['never', 7, 14, 30, 60, 120];
 
