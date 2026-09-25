@@ -2,9 +2,9 @@
   <template v-if="!workflow.connectedTable">
     <ui-popover class="mb-4">
       <template #trigger>
-        <ui-button> Connect to a storage table </ui-button>
+        <ui-button> 连接到存储表格 </ui-button>
       </template>
-      <p>Select a table</p>
+      <p>选择表格</p>
       <ui-list class="mt-2 max-h-80 w-64 space-y-1 overflow-auto">
         <p v-if="state.tableList.length === 0">
           {{ t('message.noData') }}

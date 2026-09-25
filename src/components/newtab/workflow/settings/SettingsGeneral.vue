@@ -34,10 +34,9 @@
   </div>
   <div v-if="!isFirefox" class="flex items-center pt-4">
     <div class="mr-4 flex-1">
-      <p>Workflow Execution</p>
+      <p>工作流执行</p>
       <p class="text-sm leading-tight text-gray-600 dark:text-gray-200">
-        Workflow execution environment (Use "Popup" if workflow runs more than 5
-        minutes)
+        工作流执行环境（运行超过 5 分钟请选「弹出窗口」）
       </p>
     </div>
     <a
@@ -51,8 +50,8 @@
       :model-value="settings.execContext || 'popup'"
       @change="updateSetting('execContext', $event)"
     >
-      <option value="popup">Popup</option>
-      <option value="background">Background</option>
+      <option value="popup">弹出窗口</option>
+      <option value="background">后台</option>
     </ui-select>
   </div>
   <div class="flex items-center pt-4">

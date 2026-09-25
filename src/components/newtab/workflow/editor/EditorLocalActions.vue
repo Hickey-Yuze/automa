@@ -181,7 +181,7 @@
           @click="copyWorkflowId"
         >
           <v-remixicon name="riFileCopyLine" class="mr-2 -ml-1" />
-          Copy workflow Id
+          复制工作流 ID
         </ui-list-item>
         <ui-list-item
           v-if="isTeam && canEdit"
