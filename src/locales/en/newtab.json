@@ -335,14 +335,14 @@
       "valueTypes": {
         "value": "Value",
         "code": "Code",
-        "dataExists": "Data exists",
-        "elementText": "Element text",
-        "elementExists": "Element exists",
-        "elementNotExists": "Element not exists",
-        "elementVisible": "Element visible",
-        "elementVisibleScreen": "Element visible in screen",
-        "elementInvisible": "Element hidden in screen",
-        "elementAttribute": "Element attribute value"
+        "dataexists": "Data exists",
+        "elementtext": "Element text",
+        "elementexists": "Element exists",
+        "elementnotExists": "Element not exists",
+        "elementvisible": "Element visible",
+        "elementvisibleScreen": "Element visible in screen",
+        "elementinvisible": "Element hidden in screen",
+        "elementattribute": "Element attribute value"
       },
       "inputTypes": {
         "selector": "CSS selector or XPath",

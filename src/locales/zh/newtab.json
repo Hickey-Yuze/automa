@@ -335,14 +335,14 @@
       "valueTypes": {
         "value": "值",
         "code": "代码",
-        "dataExists": "数据存在",
-        "elementText": "元素文本",
-        "elementExists": "元素存在",
-        "elementNotExists": "元素不存在",
-        "elementVisible": "元素可见",
-        "elementVisibleScreen": "元素在屏幕内可见",
-        "elementInvisible": "元素在屏幕内隐藏",
-        "elementAttribute": "元素属性值"
+        "dataexists": "数据存在",
+        "elementtext": "元素文本",
+        "elementexists": "元素存在",
+        "elementnotExists": "元素不存在",
+        "elementvisible": "元素可见",
+        "elementvisibleScreen": "元素在屏幕内可见",
+        "elementinvisible": "元素在屏幕内隐藏",
+        "elementattribute": "元素属性值"
       },
       "inputTypes": {
         "selector": "CSS 选择器或 XPath",
