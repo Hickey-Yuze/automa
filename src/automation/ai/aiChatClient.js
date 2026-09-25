@@ -1,22 +1,19 @@
-// AI 问答块的服务封装（OpenAI 兼容协议）
-// 配置存于扩展本地存储（key: aiChatConfig），设置页「AI 服务」节维护；
-// baseUrl/apiKey/model 全局共用，块级可覆盖 model。
-// 协议：POST {baseUrl}/chat/completions，Bearer 鉴权，标准 messages 消息体。
-import BrowserAPIService from '@/service/browser-api/BrowserAPIService';
+// AI 问答块的服务客户端（OpenAI 兼容协议）
+// 执行链运行在 offscreen document：chrome.storage 与跨域 fetch 均不可用，
+// 配置读写与 API 调用一律经 runtime 消息代理到 background 执行
+// （host_permissions: <all_urls> 豁免 CORS）。
+import { sendMessage } from '@/utils/message';
 
-const STORAGE_KEY = 'aiChatConfig';
 const DEFAULT_CONFIG = { baseUrl: '', apiKey: '', model: '' };
 
 export async function getAiChatConfig() {
-  const result = await BrowserAPIService.storage.local.get(STORAGE_KEY);
-  return { ...DEFAULT_CONFIG, ...(result[STORAGE_KEY] || {}) };
+  const config = await sendMessage('ai-chat:config-get', {}, 'background');
+  return { ...DEFAULT_CONFIG, ...(config || {}) };
 }
 
 export async function setAiChatConfig(patch) {
-  const current = await getAiChatConfig();
-  const next = { ...current, ...patch };
-  await BrowserAPIService.storage.local.set({ [STORAGE_KEY]: next });
-  return next;
+  const config = await sendMessage('ai-chat:config-set', patch, 'background');
+  return { ...DEFAULT_CONFIG, ...(config || {}) };
 }
 
 export async function chatCompletion({
@@ -28,44 +25,15 @@ export async function chatCompletion({
   temperature = 0.7,
   timeoutMs = 60000,
 }) {
-  const url = `${baseUrl.replace(/\/+$/, '')}/chat/completions`;
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  const answer = await sendMessage(
+    'ai-chat:completion',
+    { baseUrl, apiKey, model, system, prompt, temperature, timeoutMs },
+    'background'
+  );
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model,
-        temperature,
-        messages: [
-          { role: 'system', content: system },
-          { role: 'user', content: prompt },
-        ],
-      }),
-      signal: controller.signal,
-    });
-
-    if (!response.ok) {
-      const text = await response.text().catch(() => '');
-      const err = new Error(
-        `ai-chat-http-${response.status}: ${text.slice(0, 200)}`
-      );
-      throw err;
-    }
-
-    const result = await response.json();
-    const answer = result?.choices?.[0]?.message?.content;
-    if (typeof answer !== 'string') {
-      throw new Error('ai-chat-empty-response');
-    }
-
-    return answer;
-  } finally {
-    clearTimeout(timer);
+  if (typeof answer !== 'string') {
+    throw new Error('ai-chat-empty-response');
   }
+
+  return answer;
 }

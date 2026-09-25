@@ -21,6 +21,7 @@ import BackgroundOffscreen from './BackgroundOffscreen';
 import BackgroundUtils from './BackgroundUtils';
 import BackgroundWorkflowUtils from './BackgroundWorkflowUtils';
 import { registerYuzeCallHandlers } from './yuzeApi';
+import { registerAiChatHandlers } from './aiChatService';
 
 BackgroundOffscreen.instance.sendMessage('halo');
 
@@ -63,6 +64,9 @@ const message = new MessageListener('background');
 
 // yuze JS API：tabs/storage/downloads/cookies/python 白名单代理
 registerYuzeCallHandlers(message);
+
+// AI 问答块：配置读写与 OpenAI 兼容调用代理
+registerAiChatHandlers(message);
 
 message.on('browser-api', (payload) => {
   return BrowserAPIService.runtimeMessageHandler.call(
