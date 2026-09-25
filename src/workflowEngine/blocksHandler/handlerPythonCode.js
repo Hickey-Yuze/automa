@@ -128,6 +128,20 @@ export async function pythonCode({ data, ...block }, { refData }) {
     });
   }
 
+  // stdout（print）输出到工作流日志——原版命令行脚本直接粘贴也能看到输出
+  const stdout =
+    typeof executed.output === 'string' ? executed.output.trim() : '';
+  if (stdout) {
+    this.engine.addLogHistory({
+      type: 'success',
+      name: block.label,
+      description: `[print] ${stdout.slice(0, 500)}`,
+      blockId: block.id,
+      workerId: this.id,
+      timestamp: Date.now(),
+    });
+  }
+
   // 流向控制（对齐 javascriptCode 的 next_block 语义）
   let insert = true;
   let columnData;

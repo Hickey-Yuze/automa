@@ -76,7 +76,8 @@ def execute_payload(payload):
     table = data.get("table") or []
     loop_data = data.get("loopData") or {}
 
-    namespace = {"__name__": "__yuze_host__"}
+    # __name__ 设为 __main__：让原版命令行脚本的 if __name__ == "__main__" 直接生效
+    namespace = {"__name__": "__main__"}
 
     started = time.monotonic()
 
@@ -85,6 +86,8 @@ def execute_payload(payload):
     namespace["_yuze_init"](variables, table, loop_data)
 
     # 2) 执行用户代码，捕获 stdout/stderr
+    # argv 清成空参数：argparse 解析不会吃到桥进程自身的参数，原版脚本自动走默认模式
+    sys.argv = ["yuze-block"]
     stdout_buf = io.StringIO()
     with contextlib.redirect_stdout(stdout_buf), contextlib.redirect_stderr(stdout_buf):
         exec(compile(code, "<yuze-user-code>", "exec"), namespace)
