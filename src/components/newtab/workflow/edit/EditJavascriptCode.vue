@@ -100,19 +100,86 @@
             <p
               class="scroll space-x-1 overflow-x-auto overflow-y-hidden whitespace-nowrap pb-1"
             >
-              <a
+              <button
                 v-for="func in availableFuncs"
-                :key="func.id"
-                :href="`https://docs.extension.automa.site/blocks/javascript-code.html#${func.id}`"
-                target="_blank"
-                rel="noopener"
-                class="inline-block"
+                :key="func.name"
+                type="button"
+                class="inline-block cursor-pointer transition-opacity duration-150 hover:opacity-80 active:scale-95"
+                @click="
+                  state.activeApi =
+                    state.activeApi === func.name ? '' : func.name
+                "
               >
-                <code>
-                  {{ func.name }}
-                </code>
-              </a>
+                <code
+                  :class="
+                    state.activeApi === func.name ? 'ring-1 ring-blue-400' : ''
+                  "
+                  >{{ func.name }}</code
+                >
+              </button>
             </p>
+            <div
+              v-if="activeDoc"
+              class="mt-2 rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm dark:border-gray-700 dark:bg-gray-900"
+            >
+              <div class="flex items-center justify-between gap-2">
+                <code class="text-blue-600 dark:text-blue-300">{{
+                  activeDoc.signature
+                }}</code>
+                <a
+                  v-if="activeDoc.anchor"
+                  :href="`https://docs.extension.automa.site/blocks/javascript-code.html#${activeDoc.anchor}`"
+                  target="_blank"
+                  rel="noopener"
+                  class="shrink-0 text-xs underline hover:opacity-80"
+                  >{{ uiLabels.viewOnline }}</a
+                >
+              </div>
+              <p class="mt-2">{{ activeDoc.desc }}</p>
+              <table
+                v-if="activeDoc.params.length"
+                class="mt-2 w-full text-left"
+              >
+                <thead>
+                  <tr class="text-xs text-gray-500">
+                    <th class="pr-3 font-medium">{{ uiLabels.params }}</th>
+                    <th class="pr-3 font-medium"></th>
+                    <th class="font-medium"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="param in activeDoc.params" :key="param.name">
+                    <td class="pr-3 align-top">
+                      <code>{{ param.name }}</code>
+                    </td>
+                    <td class="pr-3 align-top text-xs text-gray-500">
+                      {{ param.type }}
+                    </td>
+                    <td class="align-top">{{ param.desc }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="mt-2">
+                <b>{{ uiLabels.returns }}</b
+                >：{{ activeDoc.returns }}
+              </p>
+              <pre
+                class="mt-2 overflow-auto rounded-lg bg-gray-900 p-2 text-xs text-gray-200"
+                v-text="activeDoc.example"
+              />
+              <div class="mt-2 flex items-center justify-between gap-2">
+                <span class="text-xs text-gray-500">{{
+                  contextText(activeDoc)
+                }}</span>
+                <ui-button
+                  variant="accent"
+                  class="h-7 px-2 text-xs transition-transform duration-150 active:scale-95"
+                  @click="insertExample(activeDoc)"
+                >
+                  {{ uiLabels.insert }}
+                </ui-button>
+              </div>
+            </div>
           </template>
         </ui-tab-panel>
         <ui-tab-panel value="preloadScript">
@@ -154,8 +221,9 @@ import {
   automaFuncsSnippets,
   completeFromGlobalScope,
 } from '@/utils/codeEditorAutocomplete';
+import { contextLabels, jsApiDocs, uiLabels } from '@/utils/jsApiDocs';
 import { autocompletion } from '@codemirror/autocomplete';
-import { defineAsyncComponent, inject, reactive, watch } from 'vue';
+import { computed, defineAsyncComponent, inject, reactive, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { store } from '../../settings/jsBlockWrap';
 
@@ -182,29 +250,38 @@ const emit = defineEmits(['update:data']);
 const { t } = useI18n();
 
 const isFirefox = BROWSER_TYPE === 'firefox';
-const availableFuncs = [
-  { name: 'automaNextBlock(data, insert?)', id: 'automanextblock-data' },
-  { name: 'automaRefData(keyword, path?)', id: 'automarefdata-keyword-path' },
-  {
-    name: 'automaSetVariable(name, value)',
-    id: 'automasetvariable-name-value',
-  },
-  {
-    name: 'automaFetch(type, resource)',
-    id: 'automasetvariable-type-resource',
-  },
-  { name: 'automaResetTimeout()', id: 'automaresettimeout' },
-];
-const autocompleteList = Object.values(automaFuncsSnippets).slice(0, 4);
-
-const workflow = inject('workflow');
 
 const state = reactive({
   activeTab: 'code',
   code: `${props.data.code}`,
   preloadScripts: [...Object.values(props.data.preloadScripts || [])],
   showCodeModal: false,
+  activeApi: '',
 });
+
+// JS 代码块实际可用的函数集（以 handlerJavascriptCode.js 的 getAutomaScript 为准）；
+// automaExecWorkflow 仅「注入 JavaScript」块可用，故不在此列
+const availableFuncs = jsApiDocs.filter((doc) =>
+  doc.contexts.includes('js-block')
+);
+const autocompleteList = availableFuncs.map(
+  (doc) => automaFuncsSnippets[doc.name]
+);
+const activeDoc = computed(() =>
+  jsApiDocs.find((doc) => doc.name === state.activeApi)
+);
+
+function contextText(doc) {
+  return doc.contexts
+    .map((item) => contextLabels[item])
+    .filter(Boolean)
+    .join('；');
+}
+function insertExample(doc) {
+  state.code = `${state.code}\n${doc.example}`;
+}
+
+const workflow = inject('workflow');
 
 function updateData(value) {
   emit('update:data', { ...props.data, ...value });

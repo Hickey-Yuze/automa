@@ -1,6 +1,13 @@
 /* eslint-disable no-template-curly-in-string */
 import { snippet } from '@codemirror/autocomplete';
 import { syntaxTree } from '@codemirror/language';
+import { jsApiDocs, renderApiDoc } from './jsApiDocs';
+
+function docInfo(name) {
+  const doc = jsApiDocs.find((item) => item.name === name);
+
+  return () => renderApiDoc(doc);
+}
 
 const completePropertyAfter = ['PropertyName', '.', '?.'];
 const excludeProps = ['chrome', 'Mousetrap'];
@@ -79,94 +86,36 @@ export const automaFuncsSnippets = {
     label: 'automaNextBlock',
     type: 'function',
     apply: snippet('automaNextBlock(${data})'),
-    info: () => {
-      const container = document.createElement('div');
-
-      container.innerHTML = `
-        <code>automaNextBlock(<i>data</i>, <i>insert?</i>)</code>
-        <p class="mt-2">
-          Execute the next block
-          <a href="https://docs.extension.automa.site/blocks/javascript-code.html#automanextblock-data" target="_blank" class="underline">
-            Read more
-          </a>
-        </p>
-      `;
-
-      return container;
-    },
+    info: docInfo('automaNextBlock'),
   },
   automaSetVariable: {
     label: 'automaSetVariable',
     type: 'function',
     apply: snippet("automaSetVariable('${name}', ${value})"),
-    info: () => {
-      const container = document.createElement('div');
-
-      container.innerHTML = `
-        <code>automaRefData(<i>name</i>, <i>value</i>)</code>
-        <p class="mt-2">
-          Set the value of a variable
-        </p>
-      `;
-
-      return container;
-    },
+    info: docInfo('automaSetVariable'),
   },
   automaFetch: {
     label: 'automaFetch',
     type: 'function',
     apply: snippet("automaFetch('${json}', { url: '${}' })"),
-    info: () => {
-      const container = document.createElement('div');
-
-      container.innerHTML = `
-        <code>automaFetch(<i>type</i>, <i>resource</i>)</code>
-      `;
-
-      return container;
-    },
+    info: docInfo('automaFetch'),
   },
   automaRefData: {
     label: 'automaRefData',
     type: 'function',
     apply: snippet("automaRefData('${keyword}', '${path}')"),
-    info: () => {
-      const container = document.createElement('div');
-
-      container.innerHTML = `
-        <code>automaRefData(<i>keyword</i>, <i>path</i>)</code>
-        <p class="mt-2">
-          Use this function to
-          <a href="https://docs.extension.automa.site/workflow/expressions.html" target="_blank" class="underline">
-            reference data
-          </a>
-        </p>
-      `;
-
-      return container;
-    },
+    info: docInfo('automaRefData'),
   },
   automaResetTimeout: {
     label: 'automaResetTimeout',
     type: 'function',
-    info: 'Reset javascript execution timeout',
-    apply: 'automaResetTimeout()',
+    apply: snippet('automaResetTimeout()'),
+    info: docInfo('automaResetTimeout'),
   },
   automaExecWorkflow: {
     label: 'automaExecWorkflow',
     type: 'function',
     apply: snippet("automaExecWorkflow({ id: '${workflowId}' })"),
-    info: () => {
-      const container = document.createElement('div');
-
-      container.innerHTML = `
-        <code>automaRefData(<i>options</i>)</code>
-        <p class="mt-2">
-          Execute a workflow
-        </p>
-      `;
-
-      return container;
-    },
+    info: docInfo('automaExecWorkflow'),
   },
 };

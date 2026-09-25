@@ -26,6 +26,7 @@ import { oneDark } from '@codemirror/theme-one-dark';
 import { keymap } from '@codemirror/view';
 import { EditorView, basicSetup } from 'codemirror';
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { automaHover } from '@/utils/jsApiDocs';
 // don't remove this unused import, the css is used in dynamic style
 import { store } from '../settings/jsBlockWrap';
 
@@ -84,6 +85,7 @@ const state = EditorState.create({
     EditorState.tabSize.of(2),
     keymap.of([indentWithTab]),
     EditorState.readOnly.of(props.readonly),
+    automaHover,
     ...customExtension,
   ],
 });
