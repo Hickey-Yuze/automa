@@ -135,7 +135,7 @@ export async function pythonCode({ data, ...block }, { refData }) {
     this.engine.addLogHistory({
       type: 'success',
       name: block.label,
-      description: `[print] ${stdout.slice(0, 500)}`,
+      description: `[print] ${stdout.slice(0, 2000)}`,
       blockId: block.id,
       workerId: this.id,
       timestamp: Date.now(),

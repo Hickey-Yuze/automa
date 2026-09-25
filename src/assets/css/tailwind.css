@@ -67,6 +67,12 @@ select:focus,
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.line-clamp-none {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  white-space: pre-wrap;
+}
 
 
 .custom-table thead {

@@ -231,7 +231,14 @@
             <tr>
               <td class="text-gray-300">Description</td>
               <td>
-                <p class="line-clamp leading-tight">
+                <p
+                  :class="[
+                    'leading-tight cursor-pointer',
+                    state.expandDesc ? 'line-clamp-none' : 'line-clamp',
+                  ]"
+                  :title="t('common.clickToExpand')"
+                  @click="state.expandDesc = !state.expandDesc"
+                >
                   {{ activeLog.description }}
                 </p>
               </td>
@@ -370,6 +377,7 @@ const state = shallowReactive({
   itemId: '',
   search: '',
   activeTab: 'all',
+  expandDesc: false,
 });
 const pagination = shallowReactive({
   perPage: 25,
@@ -562,6 +570,7 @@ function translateLog(log) {
 }
 function setActiveLog(item) {
   state.itemId = item.id;
+  state.expandDesc = false;
   activeLog.value = item;
 }
 function getBlockPath(blockId) {
