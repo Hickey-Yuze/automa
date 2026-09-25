@@ -1,16 +1,16 @@
 <template>
   <div class="max-w-2xl">
-    <p class="font-semibold">Zoom</p>
+    <p class="font-semibold">缩放</p>
     <div class="mt-1 flex items-center space-x-4">
       <ui-input
         v-model.number="settings.minZoom"
         type="number"
-        label="Min zoom"
+        label="最小缩放"
       />
       <ui-input
         v-model.number="settings.maxZoom"
         type="number"
-        label="Max zoom"
+        label="最大缩放"
       />
     </div>
     <ui-list class="mt-8 space-y-2">
@@ -45,12 +45,12 @@
           <ui-input
             v-model.number="settings.snapGrid[0]"
             type="number"
-            label="X Axis"
+            label="X 轴"
           />
           <ui-input
             v-model.number="settings.snapGrid[1]"
             type="number"
-            label="Y Axis"
+            label="Y 轴"
           />
         </div>
       </transition-expand>

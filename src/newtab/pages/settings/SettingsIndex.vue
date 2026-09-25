@@ -55,7 +55,7 @@
     </p>
   </div>
   <div id="delete-logs" class="mt-12">
-    <p class="mb-1 font-semibold">Workflow Logs</p>
+    <p class="mb-1 font-semibold">工作流日志</p>
     <div class="flex items-center">
       <ui-select
         :model-value="settings.deleteLogAfter"
@@ -82,7 +82,7 @@
         :model-value="settings.logsLimit"
         class="ml-4"
         type="number"
-        label="Logs limit"
+        label="日志上限"
         min="10"
         @change="updateSetting('logsLimit', +$event <= 0 ? 1000 : +$event)"
       />
