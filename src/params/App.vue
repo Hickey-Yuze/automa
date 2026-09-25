@@ -5,9 +5,9 @@
   >
     <nav class="mb-4 flex w-full items-center border-b p-4">
       <span class="bg-box-transparent rounded-full p-1 dark:bg-none">
-        <img src="@/assets/svg/logo.svg" class="w-10" />
+        <img src="@/assets/images/icon-128.png" class="w-10 rounded-full" />
       </span>
-      <p class="ml-4 text-lg font-semibold">Automa</p>
+      <p class="ml-4 text-lg font-semibold">Yuze Auto</p>
     </nav>
     <div class="scroll flex-1 overflow-auto px-4 pb-4">
       <p class="my-4 text-gray-600 dark:text-gray-200">

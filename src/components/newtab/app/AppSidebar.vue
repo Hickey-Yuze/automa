@@ -4,8 +4,8 @@
   >
     <img
       :title="`v${extensionVersion}`"
-      src="@/assets/svg/logo.svg"
-      class="mx-auto mb-4 w-10"
+      src="@/assets/images/icon-128.png"
+      class="mx-auto mb-4 w-10 rounded-lg"
     />
     <div
       class="relative w-full space-y-2 text-center"

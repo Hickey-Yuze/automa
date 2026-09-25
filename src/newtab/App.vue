@@ -271,8 +271,8 @@ useHead(() => {
     title: 'Dashboard',
     titleTemplate:
       runningWorkflows > 0
-        ? `%s (${runningWorkflows} Workflows Running) - Automa`
-        : '%s - Automa',
+        ? `%s（${runningWorkflows} 个工作流运行中） - Yuze Auto`
+        : '%s - Yuze Auto',
   };
 });
 

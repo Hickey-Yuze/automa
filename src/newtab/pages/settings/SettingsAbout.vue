@@ -21,10 +21,9 @@
       </a>
     </div>
     <div class="my-8 border-b dark:border-gray-700"></div>
-    <h2 class="text-xl font-semibold">Contributors</h2>
+    <h2 class="text-xl font-semibold">贡献者</h2>
     <p class="mt-1 text-gray-600 dark:text-gray-200">
-      Thanks to everyone who has submitted issues, made suggestions, and
-      generally helped make this a better project.
+      感谢所有提交 issue、提出建议、以及以各种方式帮助项目变好的人。
     </p>
     <div class="mt-4 mb-12 grid grid-cols-7 gap-2">
       <a
