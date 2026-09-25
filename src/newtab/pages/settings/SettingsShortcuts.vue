@@ -6,7 +6,7 @@
     <p class="mb-2 font-semibold capitalize">Automa</p>
     <ui-list>
       <ui-list-item class="group">
-        <p class="flex-1">Shortcut</p>
+        <p class="flex-1">快捷键</p>
         <template v-if="recording.id === 'automa:shortcut'">
           <kbd v-for="key in recording.keys" :key="key">
             {{ getReadableShortcut(key) }}
@@ -27,7 +27,7 @@
         </template>
         <template v-else>
           <button
-            v-tooltip="'Remove shortcut'"
+            v-tooltip="'移除快捷键'"
             class="invisible mr-4 group-hover:visible"
             @click="removeShortcut('automa:shortcut')"
           >
@@ -115,6 +115,28 @@ const recording = reactive({
   isChanged: false,
 });
 
+// 快捷键分组与条目的中文名（id 是英文短语，运行时生成，无 i18n key）
+const CATEGORY_NAMES = {
+  automa: 'Automa',
+  page: '页面',
+  action: '操作',
+  editor: '编辑器',
+};
+const SHORTCUT_NAMES = {
+  dashboard: '主页',
+  workflows: '工作流',
+  schedule: '计划',
+  logs: '日志',
+  storage: '存储',
+  settings: '设置',
+  search: '搜索',
+  new: '新建',
+  'duplicate block': '复制块',
+  'search blocks': '搜索块',
+  save: '保存',
+  'record shortcut': '录制快捷键',
+};
+
 const shortcutsCats = computed(() => {
   const arr = Object.values(shortcuts.value);
   const result = {};
@@ -122,7 +144,11 @@ const shortcutsCats = computed(() => {
   arr.forEach((item) => {
     const [category, shortcutName] = item.id.split(':');
     const readableKey = getReadableShortcut(item.combo);
-    const name = shortcutName.replace('-', ' ');
+    const generatedName = shortcutName.replace('-', ' ');
+    const name =
+      SHORTCUT_NAMES[generatedName] ||
+      SHORTCUT_NAMES[shortcutName] ||
+      generatedName;
 
     (result[category] = result[category] || []).push({
       ...item,
@@ -131,7 +157,12 @@ const shortcutsCats = computed(() => {
     });
   });
 
-  return result;
+  const renamed = {};
+  Object.entries(result).forEach(([key, value]) => {
+    renamed[CATEGORY_NAMES[key] || key] = value;
+  });
+
+  return renamed;
 });
 
 function keydownListener(event) {

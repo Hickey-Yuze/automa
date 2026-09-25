@@ -95,7 +95,7 @@
               <p class="mb-2 font-semibold">
                 {{ t('settings.backupWorkflows.backup.settings') }}
               </p>
-              <p>Also backup</p>
+              <p>同时备份</p>
               <div class="flex mt-1 flex-col gap-2">
                 <ui-checkbox
                   v-for="item in BACKUP_ITEMS_INCLUDES"
@@ -120,14 +120,13 @@
               </p>
               <template v-if="!downloadPermission.has.downloads">
                 <p class="text-gray-600 dark:text-gray-300 mt-1">
-                  Automa requires the "Downloads" permission for the schedule
-                  backup to work
+                  定时备份需要「下载」权限才能工作
                 </p>
                 <ui-button
                   class="mt-2 w-full"
                   @click="downloadPermission.request()"
                 >
-                  Allow "Downloads" permission
+                  允许「下载」权限
                 </ui-button>
               </template>
               <template v-else>
@@ -135,7 +134,7 @@
                   v-model="localBackupSchedule.schedule"
                   class="w-full mt-2"
                 >
-                  <option value="">Never</option>
+                  <option value="">从不</option>
                   <option
                     v-for="(value, key) in BACKUP_SCHEDULES"
                     :key="key"
@@ -143,12 +142,12 @@
                   >
                     {{ value }}
                   </option>
-                  <option value="custom">Custom</option>
+                  <option value="custom">自定义</option>
                 </ui-select>
                 <template v-if="localBackupSchedule.schedule === 'custom'">
                   <ui-input
                     v-model="localBackupSchedule.customSchedule"
-                    label="Cron Expression"
+                    label="Cron 表达式"
                     class="w-full mt-2"
                     placeholder="0 8 * * *"
                   />
@@ -159,7 +158,7 @@
                 <ui-input
                   v-if="localBackupSchedule.schedule !== ''"
                   v-model="localBackupSchedule.folderName"
-                  label="Folder name"
+                  label="文件夹名称"
                   class="w-full mt-2"
                   placeholder="backup-folder"
                 />
@@ -167,7 +166,7 @@
                   v-if="localBackupSchedule.lastBackup"
                   class="text-gray-600 dark:text-gray-300 text-sm mt-4"
                 >
-                  Last backup:
+                  上次备份：
                   {{ dayjs(localBackupSchedule.lastBackup).fromNow() }}
                 </p>
               </template>
@@ -225,12 +224,12 @@ import { useToast } from 'vue-toastification';
 import browser from 'webextension-polyfill';
 
 const BACKUP_SCHEDULES = {
-  '0 8 * * *': 'Every day',
-  '0 8 * * 0': 'Every week',
+  '0 8 * * *': '每天',
+  '0 8 * * 0': '每周',
 };
 const BACKUP_ITEMS_INCLUDES = [
-  { id: 'storage:table', name: 'Storage tables' },
-  { id: 'storage:variables', name: 'Storage variables' },
+  { id: 'storage:table', name: '存储表格' },
+  { id: 'storage:variables', name: '存储变量' },
 ];
 
 const { t } = useI18n();
