@@ -1548,37 +1548,37 @@ export const tasks = {
 // 全部分类统一绿色（用户偏好：画布块图标统一绿色主题）
 export const categories = {
   interaction: {
-    name: 'Web interaction',
+    name: '网页交互',
     border: 'border-green-200 dark:border-green-300',
     color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
   },
   browser: {
-    name: 'Browser',
+    name: '浏览器',
     border: 'border-green-200 dark:border-green-300',
     color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
   },
   general: {
-    name: 'General',
+    name: '常规',
     border: 'border-green-200 dark:border-green-300',
     color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
   },
   onlineServices: {
-    name: 'Online services',
+    name: '在线服务',
     border: 'border-green-200 dark:border-green-300',
     color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
   },
   data: {
-    name: 'Data',
+    name: '数据',
     border: 'border-green-200 dark:border-green-300',
     color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
   },
   conditions: {
-    name: 'Control flow',
+    name: '控制流',
     border: 'border-green-200 dark:border-green-300',
     color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
   },
   package: {
-    name: 'Packages',
+    name: '包',
     border: 'border-green-200 dark:border-green-300',
     color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
   },

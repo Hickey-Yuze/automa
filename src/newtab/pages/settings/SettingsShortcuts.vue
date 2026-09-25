@@ -134,6 +134,8 @@ const SHORTCUT_NAMES = {
   'duplicate block': '复制块',
   'search blocks': '搜索块',
   save: '保存',
+  'execute workflow': '执行工作流',
+  'toggle sidebar': '切换侧边栏',
   'record shortcut': '录制快捷键',
 };
 

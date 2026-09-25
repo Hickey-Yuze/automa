@@ -194,13 +194,13 @@ const workflows = computed(() =>
   )
 );
 const activeWorkflowName = computed(() => {
-  if (!filtersBuilder.workflowId) return 'All workflows';
+  if (!filtersBuilder.workflowId) return '全部工作流';
 
   const workflow = allWorkflows.value.find(
     (item) => item.id === filtersBuilder.workflowId
   );
 
-  return workflow?.name ?? 'All workflows';
+  return workflow?.name ?? '全部工作流';
 });
 
 const workflowStates = computed(() => {

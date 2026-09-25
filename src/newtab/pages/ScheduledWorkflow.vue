@@ -16,7 +16,7 @@
         @click="scheduleState.showModal = true"
       >
         <v-remixicon name="riAddLine" class="-ml-1 mr-2" />
-        Schedule workflow
+        添加计划
       </ui-button>
     </div>
     <div class="scroll w-full overflow-x-auto">
@@ -65,7 +65,7 @@
     </div>
     <ui-modal
       v-model="scheduleState.showModal"
-      title="Workflow Triggers"
+      title="工作流触发器"
       persist
       content-class="max-w-2xl"
     >
@@ -97,7 +97,7 @@
           v-model="scheduleState.selectedWorkflow.query"
           class="w-full"
           autocomplete="off"
-          placeholder="Search workflow"
+          placeholder="搜索工作流"
         />
       </ui-autocomplete>
       <template v-else>
@@ -186,7 +186,7 @@ const tableHeaders = [
   },
   {
     value: 'location',
-    text: 'Location',
+    text: '位置',
   },
   {
     value: 'active',
