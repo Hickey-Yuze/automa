@@ -129,16 +129,24 @@
       AI 服务（OpenAI 兼容，供「AI 问答」块使用）
     </p>
     <p class="mb-2 text-sm text-gray-600 dark:text-gray-200">
-      填任意 OpenAI 兼容服务，例如
-      DeepSeek：<code>https://api.deepseek.com</code>、模型
-      <code>deepseek-chat</code>；OpenAI 官方填
-      <code>https://api.openai.com/v1</code>
+      选择厂商自动填 API 地址与推荐模型，也可选「自定义」手填任意 OpenAI
+      兼容服务
     </p>
     <div class="w-80 space-y-2">
+      <ui-select
+        :model-value="state.aiProvider"
+        label="模型厂商"
+        class="w-full"
+        @change="selectAiProvider($event)"
+      >
+        <option v-for="p in aiProviders" :key="p.label" :value="p.label">
+          {{ p.label }}
+        </option>
+      </ui-select>
       <ui-input
         :model-value="aiChatConfig.baseUrl"
         label="API 地址（不含 /chat/completions）"
-        placeholder="https://api.deepseek.com"
+        :placeholder="state.aiProviderPlaceholder"
         @change="
           updateAiChatConfig({ baseUrl: $event.trim().replace(/\/+$/, '') })
         "
@@ -153,7 +161,7 @@
       <ui-input
         :model-value="aiChatConfig.model"
         label="默认模型"
-        placeholder="deepseek-chat"
+        :placeholder="state.aiModelPlaceholder"
         @change="updateAiChatConfig({ model: $event.trim() })"
       />
     </div>
@@ -185,16 +193,88 @@ const settings = computed(() => store.settings);
 
 const bridgeConfig = ref({ token: '', port: 27182 });
 const aiChatConfig = ref({ baseUrl: '', apiKey: '', model: '' });
-const state = reactive({ pinging: false, pingResult: '' });
-
-onMounted(async () => {
-  bridgeConfig.value = await getBridgeConfig();
-  aiChatConfig.value = await getAiChatConfig();
+const state = reactive({
+  pinging: false,
+  pingResult: '',
+  aiProvider: '自定义',
+  aiProviderPlaceholder: 'https://api.example.com',
+  aiModelPlaceholder: '',
 });
+
+// 常见 OpenAI 兼容厂商预设（选择后自动填 API 地址与推荐模型，均可手改）
+const aiProviders = [
+  {
+    label: 'DeepSeek',
+    baseUrl: 'https://api.deepseek.com',
+    model: 'deepseek-chat',
+  },
+  {
+    label: 'OpenAI',
+    baseUrl: 'https://api.openai.com/v1',
+    model: 'gpt-4o-mini',
+  },
+  {
+    label: '硅基流动 SiliconFlow',
+    baseUrl: 'https://api.siliconflow.cn/v1',
+    model: 'deepseek-ai/DeepSeek-V3',
+  },
+  {
+    label: '月之暗面 Kimi',
+    baseUrl: 'https://api.moonshot.cn/v1',
+    model: 'moonshot-v1-8k',
+  },
+  {
+    label: '阿里通义千问',
+    baseUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+    model: 'qwen-plus',
+  },
+  {
+    label: '智谱 GLM',
+    baseUrl: 'https://open.bigmodel.cn/api/paas/v4',
+    model: 'glm-4',
+  },
+  {
+    label: 'OpenRouter',
+    baseUrl: 'https://openrouter.ai/api/v1',
+    model: 'openai/gpt-4o-mini',
+  },
+  {
+    label: 'Ollama（本机）',
+    baseUrl: 'http://127.0.0.1:11434/v1',
+    model: 'llama3',
+  },
+  { label: '自定义', baseUrl: '', model: '' },
+];
 
 async function updateAiChatConfig(patch) {
   aiChatConfig.value = await setAiChatConfig(patch);
 }
+
+function selectAiProvider(label) {
+  const provider = aiProviders.find((p) => p.label === label);
+  state.aiProvider = label;
+  state.aiProviderPlaceholder = provider?.baseUrl || 'https://api.example.com';
+  state.aiModelPlaceholder = provider?.model || '';
+
+  if (provider?.baseUrl) {
+    updateAiChatConfig({ baseUrl: provider.baseUrl, model: provider.model });
+  }
+}
+
+onMounted(async () => {
+  bridgeConfig.value = await getBridgeConfig();
+  aiChatConfig.value = await getAiChatConfig();
+
+  const matched = aiProviders.find(
+    (p) => p.baseUrl && p.baseUrl === aiChatConfig.value.baseUrl
+  );
+  if (matched) {
+    state.aiProvider = matched.label;
+    state.aiModelPlaceholder = matched.model;
+  }
+  state.aiProviderPlaceholder =
+    matched?.baseUrl || aiChatConfig.value.baseUrl || 'https://api.example.com';
+});
 
 async function updateBridgeConfig(patch) {
   bridgeConfig.value = await setBridgeConfig(patch);
