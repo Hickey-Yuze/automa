@@ -12,7 +12,7 @@
     <Handle :id="`${id}-input-1`" type="target" :position="Position.Left" />
     <div class="mb-2 flex items-center">
       <div
-        :class="data.disableBlock ? 'bg-box-transparent' : block.category.color"
+        :class="data.disableBlock ? 'bg-box-transparent' : 'bg-accent'"
         class="text-overflow mr-4 inline-block rounded-lg p-2 text-sm dark:text-black"
       >
         <v-remixicon name="riStopLine" size="20" class="mr-1 inline-block" />

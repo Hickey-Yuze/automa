@@ -6,6 +6,10 @@
 	& > div {
 		@apply rounded-lg transition;
 	}
+	/* 通用选中样式：覆盖 vue-flow 默认蓝框（触发器等非 BlockBasic 块），跟随主题强调色 */
+	&.selected {
+		box-shadow: 0 0 0 2px rgb(var(--color-accent));
+	}
 	&.selected .block-base__content {
 		@apply ring-2 ring-accent;
 	}

@@ -19,12 +19,8 @@
     />
     <div class="flex items-center">
       <span
-        :class="
-          data.disableBlock
-            ? 'bg-box-transparent'
-            : block.details.color || block.category.color
-        "
-        class="mr-2 inline-block rounded-lg p-2 dark:text-black"
+        :class="data.disableBlock ? 'bg-box-transparent' : 'bg-accent'"
+        class="mr-2 inline-block rounded-lg p-2 text-white dark:text-white"
       >
         <svg
           v-if="block.details.name === 'AI Workflow'"

@@ -15,10 +15,8 @@
     <div class="p-4">
       <div class="mb-2 flex items-center">
         <div
-          :class="
-            data.disableBlock ? 'bg-box-transparent' : block.category.color
-          "
-          class="mr-4 inline-flex items-center rounded-lg p-2 text-sm dark:text-black"
+          :class="data.disableBlock ? 'bg-box-transparent' : 'bg-accent'"
+          class="mr-4 inline-flex items-center rounded-lg p-2 text-sm text-white dark:text-white"
         >
           <v-remixicon
             :name="block.details.icon || 'riFolderZipLine'"
