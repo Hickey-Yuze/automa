@@ -268,7 +268,7 @@ useHead(() => {
   const runningWorkflows = workflowStore.popupStates.length;
 
   return {
-    title: 'Dashboard',
+    title: '主页',
     titleTemplate:
       runningWorkflows > 0
         ? `%s（${runningWorkflows} 个工作流运行中） - Yuze Auto`

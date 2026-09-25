@@ -83,7 +83,7 @@ function addTab(detail = {}) {
   state.tabs.push({
     id: tabId,
     path: '/',
-    name: 'Workflows',
+    name: '工作流',
     ...detail,
   });
   state.activeTab = tabId;
@@ -93,7 +93,7 @@ function closeTab(index, tab) {
     state.tabs[0] = {
       path: '/',
       id: nanoid(),
-      name: 'Workflows',
+      name: '工作流',
     };
   } else {
     state.tabs.splice(index, 1);
@@ -104,7 +104,7 @@ function closeTab(index, tab) {
   }
 }
 function getTabTitle() {
-  if (route.name === 'workflows') return 'Workflows';
+  if (route.name === 'workflows') return '工作流';
 
   return `${document.title}`.replace(' - Yuze Auto', '');
 }
