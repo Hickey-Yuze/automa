@@ -233,19 +233,37 @@ export function isWhitespace(str) {
 
 export function debounce(callback, time = 200) {
   let interval;
+  let pending = null;
 
-  return (...args) => {
+  const debounced = (...args) => {
     clearTimeout(interval);
+    pending = null;
 
     return new Promise((resolve) => {
+      pending = { args, resolve };
       interval = setTimeout(() => {
         interval = null;
-
-        callback(...args);
-        resolve();
+        const task = pending;
+        pending = null;
+        callback(...task.args);
+        task.resolve();
       }, time);
     });
   };
+
+  // 立即执行挂起的回调（关编辑面板/运行前调用，防止保存被延迟写入吞掉）
+  debounced.flush = () => {
+    if (!interval || !pending) return;
+
+    clearTimeout(interval);
+    interval = null;
+    const task = pending;
+    pending = null;
+    callback(...task.args);
+    task.resolve();
+  };
+
+  return debounced;
 }
 
 export async function clearCache(workflow) {

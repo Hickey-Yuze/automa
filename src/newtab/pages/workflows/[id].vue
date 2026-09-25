@@ -723,6 +723,9 @@ function onUpdateBlockSettings({ blockId, itemId, settings }) {
   editState.blockData.data = { ...editState.blockData.data, ...settings };
 }
 function closeEditingCard() {
+  // 关闭前把挂起的块数据保存立即落盘，防止 debounce 延迟期间清空 editState 导致保存丢失
+  updateBlockData.flush();
+
   editState.editing = false;
   editState.blockData = {};
 
@@ -731,6 +734,9 @@ function closeEditingCard() {
 async function executeFromBlock(blockId) {
   try {
     if (!blockId) return;
+
+    // 运行前把挂起的块数据保存立即落盘，避免执行到尚未写入的旧数据
+    updateBlockData.flush();
 
     const workflowOptions = { blockId };
 
