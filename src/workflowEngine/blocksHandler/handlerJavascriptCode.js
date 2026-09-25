@@ -50,6 +50,71 @@ ${automaFetchClient.toString()}
 function automaFetch(type, resource) {
   return automaFetchClient('${varName}', { type, resource });
 }
+
+function yuzeCall(action, args) {
+  return new Promise(function (resolve, reject) {
+    var callId = Math.random().toString(36).slice(2);
+    var eventName = '__yuze-call-response-' + callId + '__';
+    var listener = function (event) {
+      var detail = event.detail;
+      if (detail.id !== callId) return;
+      window.removeEventListener(eventName, listener);
+      if (detail.isError) reject(new Error(detail.result));
+      else resolve(detail.result);
+    };
+    window.addEventListener(eventName, listener);
+    window.dispatchEvent(
+      new CustomEvent('__yuze-call__', {
+        detail: { id: callId, action: action, args: args },
+      })
+    );
+  });
+}
+var yuze = {
+  tabs: {
+    list: function () {
+      return yuzeCall('tabs.list');
+    },
+    create: function (url, opts) {
+      return yuzeCall('tabs.create', Object.assign({ url: url }, opts || {}));
+    },
+    activate: function (tabId) {
+      return yuzeCall('tabs.activate', tabId);
+    },
+    close: function (tabIds) {
+      return yuzeCall('tabs.close', tabIds);
+    },
+    update: function (tabId, props) {
+      return yuzeCall('tabs.update', { tabId: tabId, props: props || {} });
+    },
+  },
+  ext: {
+    storage: {
+      get: function (key) {
+        return yuzeCall('storage.get', key);
+      },
+      set: function (key, value) {
+        return yuzeCall('storage.set', { key: key, value: value });
+      },
+      remove: function (keys) {
+        return yuzeCall('storage.remove', keys);
+      },
+    },
+    downloads: {
+      download: function (url, filename) {
+        return yuzeCall('downloads.download', { url: url, filename: filename });
+      },
+    },
+    cookies: {
+      getAll: function (filter) {
+        return yuzeCall('cookies.getAll', filter);
+      },
+    },
+  },
+  python: function (code, vars) {
+    return yuzeCall('python.run', { code: code, variables: vars || {} });
+  },
+};
   `;
 
   if (everyNewTab) str = automaRefDataStr(varName);
@@ -182,6 +247,71 @@ async function executeInWebpage(args, target, worker) {
             function automaFetch(type, resource) {
               return automaFetchClient('\${_varName}', { type, resource });
             }
+
+            function yuzeCall(action, args) {
+              return new Promise(function (resolve, reject) {
+                var callId = Math.random().toString(36).slice(2);
+                var eventName = '__yuze-call-response-' + callId + '__';
+                var listener = function (event) {
+                  var detail = event.detail;
+                  if (detail.id !== callId) return;
+                  window.removeEventListener(eventName, listener);
+                  if (detail.isError) reject(new Error(detail.result));
+                  else resolve(detail.result);
+                };
+                window.addEventListener(eventName, listener);
+                window.dispatchEvent(
+                  new CustomEvent('__yuze-call__', {
+                    detail: { id: callId, action: action, args: args },
+                  })
+                );
+              });
+            }
+            var yuze = {
+              tabs: {
+                list: function () {
+                  return yuzeCall('tabs.list');
+                },
+                create: function (url, opts) {
+                  return yuzeCall('tabs.create', Object.assign({ url: url }, opts || {}));
+                },
+                activate: function (tabId) {
+                  return yuzeCall('tabs.activate', tabId);
+                },
+                close: function (tabIds) {
+                  return yuzeCall('tabs.close', tabIds);
+                },
+                update: function (tabId, props) {
+                  return yuzeCall('tabs.update', { tabId: tabId, props: props || {} });
+                },
+              },
+              ext: {
+                storage: {
+                  get: function (key) {
+                    return yuzeCall('storage.get', key);
+                  },
+                  set: function (key, value) {
+                    return yuzeCall('storage.set', { key: key, value: value });
+                  },
+                  remove: function (keys) {
+                    return yuzeCall('storage.remove', keys);
+                  },
+                },
+                downloads: {
+                  download: function (url, filename) {
+                    return yuzeCall('downloads.download', { url: url, filename: filename });
+                  },
+                },
+                cookies: {
+                  getAll: function (filter) {
+                    return yuzeCall('cookies.getAll', filter);
+                  },
+                },
+              },
+              python: function (code, vars) {
+                return yuzeCall('python.run', { code: code, variables: vars || {} });
+              },
+            };
           \`;
 
           if (_everyNewTab) _str = _automaRefDataStr(_varName);

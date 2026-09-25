@@ -20,6 +20,7 @@ import BackgroundEventsListeners from './BackgroundEventsListeners';
 import BackgroundOffscreen from './BackgroundOffscreen';
 import BackgroundUtils from './BackgroundUtils';
 import BackgroundWorkflowUtils from './BackgroundWorkflowUtils';
+import { registerYuzeCallHandlers } from './yuzeApi';
 
 BackgroundOffscreen.instance.sendMessage('halo');
 
@@ -59,6 +60,9 @@ if (browser.notifications && browser.notifications.onClicked) {
 }
 
 const message = new MessageListener('background');
+
+// yuze JS API：tabs/storage/downloads/cookies/python 白名单代理
+registerYuzeCallHandlers(message);
 
 message.on('browser-api', (payload) => {
   return BrowserAPIService.runtimeMessageHandler.call(

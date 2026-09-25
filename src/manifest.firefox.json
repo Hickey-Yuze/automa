@@ -56,7 +56,9 @@
     "storage",
     "webNavigation",
     "unlimitedStorage",
-    "<all_urls>"
+    "<all_urls>",
+    "cookies",
+    "downloads"
   ],
   "web_accessible_resources": [
     "/elementSelector.css",

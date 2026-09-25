@@ -343,6 +343,26 @@ window.addEventListener('__automa-fetch__', (event) => {
     });
 });
 
+// yuze JS API 代理：页面 yuzeCall → background（白名单路由见 background/yuzeApi.js）
+window.addEventListener('__yuze-call__', (event) => {
+  const { id, action, args } = event.detail;
+  const sendResponse = (payload) => {
+    window.dispatchEvent(
+      new CustomEvent(`__yuze-call-response-${id}__`, {
+        detail: { id, ...payload },
+      })
+    );
+  };
+
+  sendMessage('yuze:call', { action, args }, 'background')
+    .then((result) => {
+      sendResponse({ isError: false, result });
+    })
+    .catch((error) => {
+      sendResponse({ isError: true, result: error.message });
+    });
+});
+
 window.addEventListener('DOMContentLoaded', async () => {
   const link = window.location.pathname;
   const isAutomaWorkflow = /.+\.automa\.json$/.test(link);

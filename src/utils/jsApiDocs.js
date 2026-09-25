@@ -121,6 +121,165 @@ export const jsApiDocs = [
     contexts: ['inject-block'],
     anchor: '',
   },
+  {
+    name: 'yuze.tabs.list',
+    signature: 'yuze.tabs.list()',
+    desc: '列出当前浏览器所有标签页。',
+    params: [],
+    returns: 'Promise<Array<{ id, title, url, active, windowId, index }>>',
+    example:
+      'const tabs = await yuze.tabs.list();\nconsole.log(tabs.map((t) => t.title));',
+    contexts: ['js-block'],
+    anchor: '',
+  },
+  {
+    name: 'yuze.tabs.create',
+    signature: 'yuze.tabs.create(url, opts?)',
+    desc: '新建标签页并打开指定地址。',
+    params: [
+      { name: 'url', type: 'string', desc: '要打开的地址' },
+      { name: 'opts', type: 'object', desc: '可选，{ active?: 是否前台打开 }' },
+    ],
+    returns: 'Promise<Tab>：新建的标签页信息',
+    example: "await yuze.tabs.create('https://example.com');",
+    contexts: ['js-block'],
+    anchor: '',
+  },
+  {
+    name: 'yuze.tabs.activate',
+    signature: 'yuze.tabs.activate(tabId)',
+    desc: '把指定标签页切到前台。',
+    params: [
+      {
+        name: 'tabId',
+        type: 'number',
+        desc: '标签页 ID（可从 yuze.tabs.list() 获得）',
+      },
+    ],
+    returns: 'Promise<void>',
+    example: 'await yuze.tabs.activate(12345);',
+    contexts: ['js-block'],
+    anchor: '',
+  },
+  {
+    name: 'yuze.tabs.close',
+    signature: 'yuze.tabs.close(tabIds)',
+    desc: '关闭指定标签页，可传单个 ID 或 ID 数组。',
+    params: [
+      {
+        name: 'tabIds',
+        type: 'number | number[]',
+        desc: '标签页 ID 或 ID 数组',
+      },
+    ],
+    returns: 'Promise<void>',
+    example:
+      'const tabs = await yuze.tabs.list();\nawait yuze.tabs.close(tabs.filter((t) => t.url.includes("example.com")).map((t) => t.id));',
+    contexts: ['js-block'],
+    anchor: '',
+  },
+  {
+    name: 'yuze.tabs.update',
+    signature: 'yuze.tabs.update(tabId, props)',
+    desc: '更新标签页属性：跳转地址、静音、固定等。',
+    params: [
+      { name: 'tabId', type: 'number', desc: '标签页 ID' },
+      {
+        name: 'props',
+        type: 'object',
+        desc: '要修改的属性：{ url, active, muted, pinned } 等',
+      },
+    ],
+    returns: 'Promise<Tab>',
+    example:
+      "await yuze.tabs.update(12345, { url: 'https://example.com/other' });",
+    contexts: ['js-block'],
+    anchor: '',
+  },
+  {
+    name: 'yuze.ext.storage.get',
+    signature: 'yuze.ext.storage.get(key)',
+    desc: '读取扩展本地存储（chrome.storage.local），跨工作流、跨会话持久化，适合存配置和状态。',
+    params: [
+      {
+        name: 'key',
+        type: 'string | string[]',
+        desc: '键名；传数组可一次取多个',
+      },
+    ],
+    returns: 'Promise<Object>：{ 键名: 值 } 形式',
+    example:
+      "const data = await yuze.ext.storage.get('myConfig');\nconsole.log(data.myConfig);",
+    contexts: ['js-block'],
+    anchor: '',
+  },
+  {
+    name: 'yuze.ext.storage.set',
+    signature: 'yuze.ext.storage.set(key, value)',
+    desc: '写入扩展本地存储，值须可 JSON 序列化。',
+    params: [
+      { name: 'key', type: 'string', desc: '键名' },
+      { name: 'value', type: 'any', desc: '任意可序列化值' },
+    ],
+    returns: 'Promise<void>',
+    example:
+      "await yuze.ext.storage.set('lastRun', { at: Date.now(), count: 3 });",
+    contexts: ['js-block'],
+    anchor: '',
+  },
+  {
+    name: 'yuze.ext.downloads.download',
+    signature: 'yuze.ext.downloads.download(url, filename?)',
+    desc: '用浏览器下载能力保存文件（走 chrome.downloads，支持 data: 与 blob: 地址）。',
+    params: [
+      { name: 'url', type: 'string', desc: '文件地址' },
+      {
+        name: 'filename',
+        type: 'string',
+        desc: '可选，相对下载目录的保存路径',
+      },
+    ],
+    returns: 'Promise<number>：下载任务 ID',
+    example:
+      "await yuze.ext.downloads.download('https://example.com/report.csv', 'report.csv');",
+    contexts: ['js-block'],
+    anchor: '',
+  },
+  {
+    name: 'yuze.ext.cookies.getAll',
+    signature: 'yuze.ext.cookies.getAll(filter)',
+    desc: '读取 cookies（chrome.cookies 语义），可按域名/名称过滤。',
+    params: [
+      {
+        name: 'filter',
+        type: 'object',
+        desc: '如 { domain: "example.com", name: "session" }',
+      },
+    ],
+    returns: 'Promise<Array<Cookie>>',
+    example:
+      "const cookies = await yuze.ext.cookies.getAll({ domain: 'example.com' });",
+    contexts: ['js-block'],
+    anchor: '',
+  },
+  {
+    name: 'yuze.python',
+    signature: 'yuze.python(code, vars?)',
+    desc: '在本机 Python（yuze 桥）上同步执行代码并拿回结果。Python 代码里用 set_var 写入的变量会出现在返回的 variables 中；桥未启动或 token 未配置时抛错。仅 JS 代码块可用（everyNewTab 模式除外）。',
+    params: [
+      { name: 'code', type: 'string', desc: '要执行的 Python 代码' },
+      {
+        name: 'vars',
+        type: 'object',
+        desc: '可选，注入 Python 的变量（Python 里用 get_var 读取）',
+      },
+    ],
+    returns: 'Promise<{ variables, table, logs, output, durationMs }>',
+    example:
+      "const res = await yuze.python(\"import json\\nset_var('sum', 1 + 2)\", { source: 'js' });\nconsole.log(res.variables.sum); // 3",
+    contexts: ['js-block'],
+    anchor: '',
+  },
 ];
 
 export const contextLabels = {
@@ -208,18 +367,31 @@ export function buildCompletionOptions(docs) {
 
 const apiByName = new Map(jsApiDocs.map((doc) => [doc.name, doc]));
 
-/** 悬停 automa* 函数名时展示中文文档的 CodeMirror 扩展 */
+/** 悬停 automa* 函数名与 yuze.* 链式调用时展示中文文档的 CodeMirror 扩展 */
 export const automaHover = hoverTooltip((view, pos) => {
-  const word = view.state.wordAt(pos);
-  if (!word) return null;
+  const line = view.state.doc.lineAt(pos);
+  const before = view.state.sliceDoc(line.from, pos);
+  // 优先匹配链式名（yuze.tabs.list），回退到单个标识符（automaNextBlock）
+  const chain = before.match(/(?:[\w$]+\.)+[\w$]*$/);
+  const word = chain ? null : view.state.wordAt(pos);
 
-  const name = view.state.sliceDoc(word.from, word.to);
+  let name = null;
+  if (chain) {
+    [name] = chain;
+  } else if (word) {
+    name = view.state.sliceDoc(word.from, word.to);
+  }
+  if (!name) return null;
+
   const doc = apiByName.get(name);
   if (!doc) return null;
 
+  const from = chain ? pos - name.length : word.from;
+  const end = chain ? pos : word.to;
+
   return {
-    pos: word.from,
-    end: word.to,
+    pos: from,
+    end,
     above: true,
     create() {
       return { dom: renderApiDoc(doc) };
