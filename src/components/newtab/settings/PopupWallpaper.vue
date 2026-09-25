@@ -1,13 +1,12 @@
 <template>
   <div id="popup-wallpaper" class="mt-12">
-    <p class="mb-1 font-semibold">弹窗壁纸（工具栏弹窗背景）</p>
+    <p class="mb-1 font-semibold">弹窗壁纸（工具栏弹窗顶部背景）</p>
     <p class="mb-2 text-sm text-gray-600 dark:text-gray-200">
-      选择本地图片作为 Automa
-      弹窗背景，拖动滑杆调整显示区域（等效裁剪），预览即最终效果
+      替换弹窗顶部黑色区域为自定义图片，下方列表不变；拖动滑杆调整显示区域（等效裁剪），预览即最终效果
     </p>
     <div class="flex items-start gap-6">
       <div
-        class="relative h-80 w-56 overflow-hidden rounded-lg border border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-800"
+        class="relative h-44 w-80 overflow-hidden rounded-lg border border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-800"
       >
         <img
           v-if="wallpaper.image"

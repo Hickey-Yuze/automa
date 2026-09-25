@@ -1,20 +1,21 @@
 <template>
-  <template v-if="wallpaper.image">
-    <img
-      :src="wallpaper.image"
-      :style="wallpaperStyle"
-      class="absolute top-0 left-0 h-full w-full object-cover"
-    />
-    <div
-      class="absolute top-0 left-0 h-full w-full"
-      :style="{ background: `rgba(0, 0, 0, ${wallpaper.dim})` }"
-    ></div>
-  </template>
   <div
-    v-else
     :class="[!showTab ? 'h-48' : 'h-56']"
-    class="absolute top-0 left-0 w-full rounded-b-2xl bg-accent"
-  ></div>
+    class="absolute top-0 left-0 w-full overflow-hidden rounded-b-2xl"
+  >
+    <template v-if="wallpaper.image">
+      <img
+        :src="wallpaper.image"
+        :style="wallpaperStyle"
+        class="absolute top-0 left-0 h-full w-full object-cover"
+      />
+      <div
+        class="absolute top-0 left-0 h-full w-full"
+        :style="{ background: `rgba(0, 0, 0, ${wallpaper.dim})` }"
+      ></div>
+    </template>
+    <div v-else class="h-full w-full bg-accent"></div>
+  </div>
   <div
     :class="[!showTab ? 'mb-6' : 'mb-2']"
     class="dark relative z-10 px-5 pt-8 text-white placeholder:text-black"
