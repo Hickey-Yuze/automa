@@ -6,7 +6,7 @@
   >
     <div class="flex items-center border-b pb-2">
       <v-remixicon name="riFileEditLine" size="20" />
-      <p class="mx-2 flex-1 font-semibold">Note</p>
+      <p class="mx-2 flex-1 font-semibold">注释</p>
       <ui-popover class="note-color">
         <template #trigger>
           <v-remixicon
@@ -15,7 +15,7 @@
             class="cursor-pointer"
           />
         </template>
-        <p class="mb-1 ml-1 text-sm text-gray-600 dark:text-gray-200">Colors</p>
+        <p class="mb-1 ml-1 text-sm text-gray-600 dark:text-gray-200">颜色</p>
         <div class="flex items-center space-x-2">
           <span
             v-for="(color, colorId) in colors"
@@ -28,7 +28,7 @@
         </div>
         <ui-select
           :model-value="data.fontSize"
-          label="Font size"
+          label="字体大小"
           class="mt-2 w-full"
           @change="updateData({ fontSize: $event })"
         >
@@ -53,7 +53,7 @@
       :value="data.note"
       :style="initialSize"
       :class="[fontSize[data.fontSize || 'regular'].class]"
-      placeholder="Write a note here..."
+      placeholder="在这里写注释..."
       cols="30"
       rows="7"
       style="resize: both; min-width: 280px; min-height: 168px"
@@ -99,19 +99,19 @@ const colors = {
 };
 const fontSize = {
   regular: {
-    name: 'Regular',
+    name: '常规',
     class: 'text-base',
   },
   medium: {
-    name: 'Medium',
+    name: '中等',
     class: 'text-xl',
   },
   large: {
-    name: 'Large',
+    name: '大',
     class: 'text-2xl',
   },
   'extra-large': {
-    name: 'Extra Large',
+    name: '特大',
     class: 'text-3xl',
   },
 };
