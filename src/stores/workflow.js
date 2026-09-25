@@ -297,5 +297,67 @@ export const useWorkflowStore = defineStore('workflow', {
 
       return id;
     },
+    // ===== 回收站：误删工作流可还原（保留 30 天，上限 50 条） =====
+    async getRecycleBin() {
+      const { workflowRecycleBin: items = [] } =
+        await browser.storage.local.get('workflowRecycleBin');
+      const now = Date.now();
+      const validItems = items.filter(
+        (item) => now - item.deletedAt < 30 * 24 * 60 * 60 * 1000
+      );
+
+      if (validItems.length !== items.length) {
+        await browser.storage.local.set({
+          workflowRecycleBin: validItems,
+        });
+      }
+
+      return validItems;
+    },
+    async deleteToBin(id) {
+      const workflow = this.workflows[id];
+      if (!workflow) return this.delete(id);
+
+      const items = await this.getRecycleBin();
+      items.unshift({
+        id: `${id}-${Date.now()}`,
+        workflowId: id,
+        name: workflow.name,
+        data: JSON.parse(JSON.stringify(workflow)),
+        deletedAt: Date.now(),
+      });
+      if (items.length > 50) items.length = 50;
+      await browser.storage.local.set({ workflowRecycleBin: items });
+
+      return this.delete(id);
+    },
+    async restoreFromBin(itemId) {
+      const items = await this.getRecycleBin();
+      const item = items.find(({ id }) => id === itemId);
+      if (!item) return false;
+
+      let { workflowId } = item;
+      if (this.workflows[workflowId]) {
+        // 同 id 已被占用（理论上几乎不可能），换新 id 还原
+        workflowId = nanoid();
+        item.data.id = workflowId;
+      }
+      this.workflows[workflowId] = item.data;
+      await this.saveToStorage('workflows');
+      await browser.storage.local.set({
+        workflowRecycleBin: items.filter(({ id }) => id !== itemId),
+      });
+
+      return true;
+    },
+    async removeFromBin(itemId) {
+      const items = await this.getRecycleBin();
+      await browser.storage.local.set({
+        workflowRecycleBin: items.filter(({ id }) => id !== itemId),
+      });
+    },
+    async clearRecycleBin() {
+      await browser.storage.local.set({ workflowRecycleBin: [] });
+    },
   },
 });

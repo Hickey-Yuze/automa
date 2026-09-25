@@ -137,6 +137,21 @@
           v-if="state.activeTab === 'local'"
           v-model="state.activeFolder"
         />
+        <ui-list v-if="state.activeTab === 'local'" class="mt-4 border-t pt-4">
+          <ui-list-item
+            color="bg-box-transparent font-semibold"
+            tag="button"
+            class="rounded-lg"
+            @click="state.recycleBinShow = true"
+          >
+            <v-remixicon name="riDeleteBin7Line" class="mr-3 -ml-1" size="20" />
+            <span>回收站</span>
+          </ui-list-item>
+        </ui-list>
+        <recycle-bin-modal
+          :open="state.recycleBinShow"
+          @close="state.recycleBinShow = false"
+        />
       </div>
       <div
         class="workflows-list flex-1 lg:ml-8"
@@ -369,6 +384,7 @@
 <script setup>
 import SharedPermissionsModal from '@/components/newtab/shared/SharedPermissionsModal.vue';
 import WorkflowsFolder from '@/components/newtab/workflows/WorkflowsFolder.vue';
+import RecycleBinModal from '@/components/newtab/workflows/RecycleBinModal.vue';
 import WorkflowsHosted from '@/components/newtab/workflows/WorkflowsHosted.vue';
 import WorkflowsLocal from '@/components/newtab/workflows/WorkflowsLocal.vue';
 import WorkflowsShared from '@/components/newtab/workflows/WorkflowsShared.vue';
@@ -417,6 +433,7 @@ const state = shallowReactive({
   perPage: savedSorts.perPage || 18,
   sortBy: savedSorts.sortBy || 'createdAt',
   sortOrder: savedSorts.sortOrder || 'desc',
+  recycleBinShow: false,
 });
 const addWorkflowModal = shallowReactive({
   name: '',

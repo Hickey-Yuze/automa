@@ -113,6 +113,7 @@ import {
   watch,
 } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useToast } from 'vue-toastification';
 import SelectionArea from '@viselect/vanilla';
 import browser from 'webextension-polyfill';
 import cloneDeep from 'lodash.clonedeep';
@@ -150,6 +151,7 @@ const emit = defineEmits(['update:perPage']);
 
 const { t } = useI18n();
 const dialog = useDialog();
+const toast = useToast();
 const userStore = useUserStore();
 const workflowStore = useWorkflowStore();
 const sharedWorkflowStore = useSharedWorkflowStore();
@@ -290,8 +292,9 @@ function deleteWorkflow({ name, id }) {
     title: t('workflow.delete'),
     okVariant: 'danger',
     body: t('message.delete', { name }),
-    onConfirm: () => {
-      workflowStore.delete(id);
+    onConfirm: async () => {
+      await workflowStore.deleteToBin(id);
+      toast('已移入回收站，可在侧栏「回收站」中还原');
     },
   });
 }
@@ -316,7 +319,10 @@ function deleteSelectedWorkflows({ target, key }) {
         name: `${state.selectedWorkflows.length} workflows`,
       }),
       onConfirm: async () => {
-        await workflowStore.delete(state.selectedWorkflows);
+        for (const workflowId of state.selectedWorkflows) {
+          await workflowStore.deleteToBin(workflowId);
+        }
+        toast('已移入回收站，可在侧栏「回收站」中还原');
       },
     });
   }
