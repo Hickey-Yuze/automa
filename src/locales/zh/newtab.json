@@ -348,7 +348,7 @@
         "selector": "CSS 选择器或 XPath",
         "value": "值",
         "attrName": "属性名",
-        "dataPath": "variables@variableName"
+        "dataPath": "variables{'@'}variableName"
       }
     },
     "host": {

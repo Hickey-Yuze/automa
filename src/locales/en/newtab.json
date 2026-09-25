@@ -348,7 +348,7 @@
         "selector": "CSS selector or XPath",
         "value": "Value",
         "attrName": "Attribute name",
-        "dataPath": "variables@variableName"
+        "dataPath": "variables{'@'}variableName"
       }
     },
     "host": {
