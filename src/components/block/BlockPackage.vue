@@ -27,7 +27,7 @@
           size="20"
           class="mr-1 inline-block"
         />
-        <span class="text-overflow">{{ data.name || 'Unnamed package' }}</span>
+        <span class="text-overflow">{{ data.name || '未命名模块组' }}</span>
       </div>
       <div class="grow" />
       <v-remixicon

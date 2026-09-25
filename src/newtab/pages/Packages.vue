@@ -315,7 +315,7 @@ function clearNewPackage() {
 async function addPackage() {
   try {
     await packageStore.insert({
-      name: addState.name.trim() || 'Unnamed',
+      name: addState.name.trim() || '未命名',
       description: addState.description,
     });
 

@@ -84,7 +84,7 @@
           </button>
           <ui-tab value="editor">{{ t('common.editor') }}</ui-tab>
           <template v-if="isPackage">
-            <ui-tab value="package-details"> Details </ui-tab>
+            <ui-tab value="package-details"> 详情 </ui-tab>
             <ui-tab value="package-settings">
               {{ t('common.settings') }}
             </ui-tab>
