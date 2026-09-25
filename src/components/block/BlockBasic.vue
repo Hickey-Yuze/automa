@@ -19,7 +19,11 @@
     />
     <div class="flex items-center">
       <span
-        :class="data.disableBlock ? 'bg-box-transparent' : block.category.color"
+        :class="
+          data.disableBlock
+            ? 'bg-box-transparent'
+            : block.details.color || block.category.color
+        "
         class="mr-2 inline-block rounded-lg p-2 dark:text-black"
       >
         <svg

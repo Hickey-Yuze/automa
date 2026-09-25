@@ -1228,6 +1228,8 @@ export const tasks = {
     name: 'Notification',
     description: 'Display a notification',
     icon: 'riNotification3Line',
+    // 块级颜色覆盖（优先于分类色）：通知块用绿色，便于在画布上快速识别
+    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
     editComponent: 'EditNotification',
     component: 'BlockBasic',
     category: 'general',
