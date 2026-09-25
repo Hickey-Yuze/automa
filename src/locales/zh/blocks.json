@@ -850,6 +850,18 @@
       "debugMode": {
         "title": "调试模式",
         "description": "使用 Chrome DevTools 协议执行当前模块"
+      },
+      "ai-chat": {
+        "name": "AI 问答",
+        "description": "向 OpenAI 兼容的大模型发送提示词并保存回答",
+        "system": "系统提示词（可选）",
+        "systemPlaceholder": "你是有用的助手，回答简洁准确",
+        "prompt": "用户提示词",
+        "promptPlaceholder": "支持变量插值：把变量名放进双花括号里引用，如剩余电量变量 remaining_power",
+        "resultVar": "回答写入变量",
+        "model": "模型（留空用设置页默认）",
+        "modelPlaceholder": "deepseek-chat",
+        "timeout": "超时时间（毫秒）"
       }
     }
   }

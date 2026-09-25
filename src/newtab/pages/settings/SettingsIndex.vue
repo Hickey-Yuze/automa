@@ -124,6 +124,40 @@
       </div>
     </div>
   </div>
+  <div id="ai-chat" class="mt-12">
+    <p class="mb-1 font-semibold">
+      AI 服务（OpenAI 兼容，供「AI 问答」块使用）
+    </p>
+    <p class="mb-2 text-sm text-gray-600 dark:text-gray-200">
+      填任意 OpenAI 兼容服务，例如
+      DeepSeek：<code>https://api.deepseek.com</code>、模型
+      <code>deepseek-chat</code>；OpenAI 官方填
+      <code>https://api.openai.com/v1</code>
+    </p>
+    <div class="w-80 space-y-2">
+      <ui-input
+        :model-value="aiChatConfig.baseUrl"
+        label="API 地址（不含 /chat/completions）"
+        placeholder="https://api.deepseek.com"
+        @change="
+          updateAiChatConfig({ baseUrl: $event.trim().replace(/\/+$/, '') })
+        "
+      />
+      <ui-input
+        :model-value="aiChatConfig.apiKey"
+        type="password"
+        label="API Key"
+        placeholder="sk-..."
+        @change="updateAiChatConfig({ apiKey: $event.trim() })"
+      />
+      <ui-input
+        :model-value="aiChatConfig.model"
+        label="默认模型"
+        placeholder="deepseek-chat"
+        @change="updateAiChatConfig({ model: $event.trim() })"
+      />
+    </div>
+  </div>
 </template>
 <script setup>
 import { computed, reactive, ref, onMounted } from 'vue';
@@ -137,6 +171,7 @@ import {
   setBridgeConfig,
   pingBridge,
 } from '@/automation/python/bridgeClient';
+import { getAiChatConfig, setAiChatConfig } from '@/automation/ai/aiChatClient';
 
 const deleteLogDays = ['never', 7, 14, 30, 60, 120];
 
@@ -149,11 +184,17 @@ const isLangChange = ref(false);
 const settings = computed(() => store.settings);
 
 const bridgeConfig = ref({ token: '', port: 27182 });
+const aiChatConfig = ref({ baseUrl: '', apiKey: '', model: '' });
 const state = reactive({ pinging: false, pingResult: '' });
 
 onMounted(async () => {
   bridgeConfig.value = await getBridgeConfig();
+  aiChatConfig.value = await getAiChatConfig();
 });
+
+async function updateAiChatConfig(patch) {
+  aiChatConfig.value = await setAiChatConfig(patch);
+}
 
 async function updateBridgeConfig(patch) {
   bridgeConfig.value = await setBridgeConfig(patch);

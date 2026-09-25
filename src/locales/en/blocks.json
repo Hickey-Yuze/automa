@@ -850,6 +850,18 @@
       "debugMode": {
         "title": "Debug mode",
         "description": "Execute block using the Chrome DevTools Protocol"
+      },
+      "ai-chat": {
+        "name": "AI chat",
+        "description": "Send a prompt to an OpenAI-compatible LLM and store the answer",
+        "system": "System prompt (optional)",
+        "systemPlaceholder": "You are a helpful assistant",
+        "prompt": "User prompt",
+        "promptPlaceholder": "Supports variable interpolation: wrap a variable name in double curly braces, e.g. the remaining_power variable",
+        "resultVar": "Save answer to variable",
+        "model": "Model (empty = default from settings)",
+        "modelPlaceholder": "deepseek-chat",
+        "timeout": "Timeout (ms)"
       }
     }
   }
