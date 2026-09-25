@@ -298,9 +298,58 @@
     "conditionBuilder": {
       "title": "条件生成器",
       "add": "附加条件",
-      "and": "AND",
-      "or": "OR",
-      "topAwait": "支持 top-level await 和\"automaRefData\"函数"
+      "and": "且",
+      "or": "或",
+      "topAwait": "支持 top-level await 和\"automaRefData\"函数",
+      "empty": "空",
+      "jsCode": "JS 代码",
+      "dataExists": "数据存在 ({path})",
+      "categories": {
+        "value": "值",
+        "element": "元素"
+      },
+      "compareCategories": {
+        "basic": "基础",
+        "number": "数字",
+        "text": "文本",
+        "boolean": "布尔"
+      },
+      "compareTypes": {
+        "eq": "等于",
+        "eqi": "等于（忽略大小写）",
+        "nq": "不等于",
+        "gt": "大于",
+        "gte": "大于等于",
+        "lt": "小于",
+        "lte": "小于等于",
+        "cnt": "包含",
+        "cni": "包含（忽略大小写）",
+        "nct": "不包含",
+        "nci": "不包含（忽略大小写）",
+        "stw": "以…开头",
+        "enw": "以…结尾",
+        "rgx": "正则匹配",
+        "itr": "为真值",
+        "ifl": "为假值"
+      },
+      "valueTypes": {
+        "value": "值",
+        "code": "代码",
+        "dataExists": "数据存在",
+        "elementText": "元素文本",
+        "elementExists": "元素存在",
+        "elementNotExists": "元素不存在",
+        "elementVisible": "元素可见",
+        "elementVisibleScreen": "元素在屏幕内可见",
+        "elementInvisible": "元素在屏幕内隐藏",
+        "elementAttribute": "元素属性值"
+      },
+      "inputTypes": {
+        "selector": "CSS 选择器或 XPath",
+        "value": "值",
+        "attrName": "属性名",
+        "dataPath": "variables@variableName"
+      }
     },
     "host": {
       "title": "主机工作流程",

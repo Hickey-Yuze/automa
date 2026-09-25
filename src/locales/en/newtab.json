@@ -300,7 +300,56 @@
       "add": "Add condition",
       "and": "AND",
       "or": "OR",
-      "topAwait": "Support top-level await and \"automaRefData\" function"
+      "topAwait": "Support top-level await and \"automaRefData\" function",
+      "empty": "Empty",
+      "jsCode": "JS Code",
+      "dataExists": "Data exists ({path})",
+      "categories": {
+        "value": "Values",
+        "element": "Element"
+      },
+      "compareCategories": {
+        "basic": "Basic",
+        "number": "Number",
+        "text": "Text",
+        "boolean": "Boolean"
+      },
+      "compareTypes": {
+        "eq": "Equals",
+        "eqi": "Equals (case insensitive)",
+        "nq": "Not equals",
+        "gt": "Greater than",
+        "gte": "Greater than or equal",
+        "lt": "Less than",
+        "lte": "Less than or equal",
+        "cnt": "Contains",
+        "cni": "Contains (case insensitive)",
+        "nct": "Not contains",
+        "nci": "Not contains (case insensitive)",
+        "stw": "Starts with",
+        "enw": "Ends with",
+        "rgx": "Match with RegEx",
+        "itr": "Is truthy",
+        "ifl": "Is falsy"
+      },
+      "valueTypes": {
+        "value": "Value",
+        "code": "Code",
+        "dataExists": "Data exists",
+        "elementText": "Element text",
+        "elementExists": "Element exists",
+        "elementNotExists": "Element not exists",
+        "elementVisible": "Element visible",
+        "elementVisibleScreen": "Element visible in screen",
+        "elementInvisible": "Element hidden in screen",
+        "elementAttribute": "Element attribute value"
+      },
+      "inputTypes": {
+        "selector": "CSS selector or XPath",
+        "value": "Value",
+        "attrName": "Attribute name",
+        "dataPath": "variables@variableName"
+      }
     },
     "host": {
       "title": "Host workflow",
