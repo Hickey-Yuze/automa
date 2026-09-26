@@ -151,6 +151,12 @@ function onMouseup({ target }) {
 .note-handle {
   @apply !h-3.5 !w-3.5 !rounded-full !border-2 !border-dashed !border-gray-400 !bg-white dark:!bg-gray-800 transition-colors hover:!border-accent dark:hover:!border-accent;
 }
+.note-handle.vue-flow__handle-top {
+  top: -16px !important;
+}
+.note-handle.vue-flow__handle-bottom {
+  bottom: -16px !important;
+}
 .note-color .ui-popover__trigger {
   @apply flex items-center;
 }
