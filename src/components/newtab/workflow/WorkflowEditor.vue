@@ -242,23 +242,32 @@ editor.onEdgeUpdate(({ edge, connection }) => {
 
   Object.assign(edge, connection);
 });
-// 删除虚线（选中按 Delete / 双击）时同步移除注释上的关联记录
+// 删除虚线（选中按 Delete / 双击）时同步注释的关联记录；
+// remove 事件不携带边数据，删除后按现存 isNoteLink 边全量重建
 editor.onEdgesChange((changes) => {
-  changes.forEach(({ type, item }) => {
-    if (type !== 'remove' || !item?.data?.isNoteLink) return;
+  const hasRemove = changes.some(({ type }) => type === 'remove');
+  if (!hasRemove) return;
 
-    const isSourceNote = editor.findNode(item.source)?.label === 'note';
-    const noteId = isSourceNote ? item.source : item.target;
-    const blockId = isSourceNote ? item.target : item.source;
-    const noteNode = editor.findNode(noteId);
+  const noteLinks = {};
+  editor.getEdges.value.forEach((edge) => {
+    if (!edge.data?.isNoteLink) return;
 
-    if (!noteNode) return;
+    const isSourceNote = editor.findNode(edge.source)?.label === 'note';
+    const noteId = isSourceNote ? edge.source : edge.target;
+    const blockId = isSourceNote ? edge.target : edge.source;
 
-    noteNode.data = {
-      ...noteNode.data,
-      links: (noteNode.data.links || []).filter((id) => id !== blockId),
-    };
-    emit('update:node', noteNode);
+    if (!noteLinks[noteId]) noteLinks[noteId] = new Set();
+    noteLinks[noteId].add(blockId);
+  });
+
+  editor.getNodes.value.forEach((node) => {
+    if (node.label !== 'note') return;
+
+    const nextLinks = [...(noteLinks[node.id] || [])];
+    if ((node.data.links || []).join() === nextLinks.join()) return;
+
+    node.data = { ...node.data, links: nextLinks };
+    emit('update:node', node);
   });
 });
 
@@ -385,11 +394,16 @@ watch(editor.getSelectedNodes, (nodes, _, cleanup) => {
   const connectedEdges = getConnectedEdges(nodes, editor.getEdges.value);
 
   connectedEdges.forEach((edge) => {
+    // 注释虚线的 class 承载虚线样式，覆盖会变实线
+    if (edge.data?.isNoteLink) return;
+
     edge.class = 'connected-edges';
   });
 
   cleanup(() => {
     connectedEdges.forEach((edge) => {
+      if (edge.data?.isNoteLink) return;
+
       edge.class = undefined;
     });
   });

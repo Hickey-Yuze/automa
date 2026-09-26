@@ -1228,10 +1228,10 @@ function onEditorInit(instance) {
               id: `note-link-${noteId}--${linkedBlockId}`,
               source: isSourceNote ? nodeToConnect.nodeId : nodeId,
               target: isSourceNote ? nodeId : nodeToConnect.nodeId,
-              sourceHandle: isSourceNote
-                ? nodeToConnect.handleId
-                : 'note-bottom',
-              targetHandle: isSourceNote ? 'note-top' : nodeToConnect.handleId,
+              sourceHandle: isSourceNote ? nodeToConnect.handleId : 'note-left',
+              targetHandle: isSourceNote
+                ? 'note-right'
+                : nodeToConnect.handleId,
               class: 'note-link-edge',
               updatable: true,
               selectable: true,

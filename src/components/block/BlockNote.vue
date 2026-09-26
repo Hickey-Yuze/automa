@@ -5,17 +5,17 @@
     style="min-width: 192px"
   >
     <Handle
-      id="note-top"
+      id="note-left"
       type="target"
-      :position="Position.Top"
+      :position="Position.Left"
       :connectable-start="true"
       :connectable-end="true"
       class="note-handle"
     />
     <Handle
-      id="note-bottom"
+      id="note-right"
       type="source"
-      :position="Position.Bottom"
+      :position="Position.Right"
       :connectable-start="true"
       :connectable-end="true"
       class="note-handle"
