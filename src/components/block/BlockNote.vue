@@ -32,13 +32,13 @@
           />
         </template>
         <p class="mb-1 ml-1 text-sm text-gray-600 dark:text-gray-200">颜色</p>
-        <div class="flex items-center space-x-2">
+        <div class="flex w-52 flex-wrap items-center gap-2">
           <span
             v-for="(color, colorId) in colors"
             :key="colorId"
             :class="color"
             style="border-width: 3px"
-            class="inline-block h-8 w-8 cursor-pointer rounded-full"
+            class="inline-block h-7 w-7 cursor-pointer rounded-full"
             @click="updateData({ color: colorId })"
           />
         </div>
@@ -109,10 +109,16 @@ const initialSize = {
 const colors = {
   white: 'bg-white dark:bg-gray-800',
   red: 'bg-red-200 dark:bg-red-300',
-  indigo: 'bg-indigo-200 dark:bg-indigo-300',
-  green: 'bg-green-200 dark:bg-green-300',
+  orange: 'bg-orange-200 dark:bg-orange-300',
   amber: 'bg-amber-200 dark:bg-amber-300',
+  yellow: 'bg-yellow-200 dark:bg-yellow-300',
+  lime: 'bg-lime-200 dark:bg-lime-300',
+  green: 'bg-green-200 dark:bg-green-300',
+  teal: 'bg-teal-200 dark:bg-teal-300',
   sky: 'bg-sky-200 dark:bg-sky-300',
+  indigo: 'bg-indigo-200 dark:bg-indigo-300',
+  purple: 'bg-purple-200 dark:bg-purple-300',
+  pink: 'bg-pink-200 dark:bg-pink-300',
 };
 const fontSize = {
   regular: {
