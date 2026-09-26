@@ -1,102 +1,27 @@
 <img src="src/assets/images/icon-128.png" width="64"/>
 
-# Automa
-<p>
-  <img alt="Automa latest version" src="https://img.shields.io/github/package-json/v/AutomaApp/automa" />
-  <a href="https://twitter.com/AutomaApp">
-    <img alt="Follow Us on Twitter" src="https://img.shields.io/twitter/follow/AutomaApp?style=social" />
-  </a>
-  <a href="https://discord.gg/C6khwwTE84">
-    <img alt="Chat with us on Discord" src="https://img.shields.io/discord/942211415517835354?label=join%20discord&logo=Discord&logoColor=white" />
-  </a>
-</p>
+# Yuze Auto
 
-An extension for automating your browser by connecting blocks. <br />
-Auto-fill forms, do a repetitive task, take a screenshot, or scrape website data — the choice is yours. You can even schedule when the automation will execute!
+一个通过**连接块**来自动化浏览器操作的扩展。自动填表、重复任务、截图、抓取数据，还能按计划定时执行。
 
-## Downloads
-<table cellspacing="0" cellpadding="0">
-  <tr>
-    <td valign="center">
-      <a align="center" href="https://chrome.google.com/webstore/detail/automa/infppggnoaenmfagbfknfkancpbljcca">
-        <img src="https://user-images.githubusercontent.com/22908993/166417152-f870bfbd-1770-4c28-b69d-a7303aebc9a6.png" alt="Chrome web store" />
-        <p align="center">Chrome Web Store</p>
-      </a>
-    </td>
-    <td valign="center">
-      <a href="https://addons.mozilla.org/en-US/firefox/addon/automa/">
-        <img src="https://user-images.githubusercontent.com/22908993/166417727-3481fef4-00e5-4cf0-bb03-27fb880d993c.png" alt="Firefox add-ons" />
-        <p align="center">Firefox Add-ons</p>
-      </a>
-    </td>
-  </tr>
-</table>
+## 特性
 
-## Marketplace
-Browse the Automa marketplace where you can share and download workflows with others. [Go to the marketplace &#187;](https://extension.automa.site/marketplace)
+- 🧩 **块工作流**：拖拽连接积木块，零代码搭建自动化流程
+- 🇨🇳 **全量中文界面**：编辑器、设置、弹窗均已汉化
+- 🐍 **JS / Python 代码块**：内置 `yuze` SDK（补全、悬停示例、API 速查）
+- 📝 **注释引用虚线**：注释块与工作流块可视化关联，不干扰执行
+- ♻️ **回收站**：删除的工作流可还原（保留 30 天）
+- 🖼️ **弹窗壁纸**：自定义弹窗背景，支持裁剪调整与实时预览
 
-## Automa Chrome Extension Builder
-Automa Chrome Extension Builder (Automa CEB for short) allows you to generate a standalone chrome extension based on Automa workflows. [Go to the documentation &#187;](https://docs.extension.automa.site/extension-builder)
-
-
-## Project setup
-Before running the `yarn dev` or `yarn build` script, you need to create the `getPassKey.js` file in the `src/utils` directory.  Inside the file write
-
-```js
-export default function() {
-  return 'anything-you-want';
-}
-```
+## 本地构建
 
 ```bash
-# Install dependencies
-pnpm install
-
-# Compiles and hot-reloads for development for the chrome browser
-pnpm dev
-
-# Compiles and minifies for production for the chrome browser
-pnpm build
-
-# Create a zip file from the build folder
-pnpm build:zip
-
-# Compiles and hot-reloads for development for the firefox browser
-pnpm dev:firefox
-
-# Compiles and minifies for production for the firefox browser
-pnpm build:firefox
-
-# Lints and fixes files
-pnpm lint
+npm install --legacy-peer-deps
+npm run build
 ```
 
-### Icon Preview
-v-remixicon/icons: https://preview-v-remixicon.vercel.app/
+构建完成后，在浏览器 `chrome://extensions` 开启「开发者模式」→「加载已解压的扩展程序」→ 选择 `build` 目录。
 
-### Install Locally
-#### Chrome
-1. Open chrome and navigate to extensions page using this URL: chrome://extensions.
-2. Enable the "Developer mode".
-3. Click "Load unpacked extension" button, browse the `automa/build` directory and select it.
+## 许可
 
-![Install in chrome](https://user-images.githubusercontent.com/22908993/166417152-f870bfbd-1770-4c28-b69d-a7303aebc9a6.png)
-
-### Firefox
-1. Open firefox and navigate to `about:debugging#/runtime/this-firefox`.
-2. Click the "Load Temporary Add-on" button.
-3. Browse the `automa/build` directory and select the `manifest.json` file.
-
-![Install in firefox](https://user-images.githubusercontent.com/22908993/166417727-3481fef4-00e5-4cf0-bb03-27fb880d993c.png)
-
-## Contributors
-Thanks to everyone who has submitted issues, made suggestions, and generally helped make this a better project.
-
-<a href="https://github.com/AutomaApp/automa/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=AutomaApp/automa" />
-</a>
-
-## License
-Source code in this repository is variously licensed under the GNU Affero General Public License (AGPL), or the [Automa Commercial License](https://extension.automa.site/license/commercial/).
-
-See [LICENSE.txt](./LICENSE.txt) for details.
+本项目基于 [MIT](LICENSE.txt) 协议开源。

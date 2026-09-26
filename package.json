@@ -1,7 +1,7 @@
 {
-  "name": "automa",
+  "name": "yuze-auto",
   "version": "1.30.00",
-  "description": "An extension for automating your browser by connecting blocks",
+  "description": "Yuze Auto - 通过连接块自动化浏览器操作的扩展",
   "repository": {
     "type": "git",
     "url": "https://github.com/AutomaApp/automa.git"
