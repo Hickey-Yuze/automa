@@ -13,7 +13,7 @@
     <div class="mb-2 flex items-center">
       <div
         :class="data.disableBlock ? 'bg-box-transparent' : block.category.color"
-        class="mr-4 inline-block rounded-lg p-2 text-sm dark:text-black"
+        class="mr-4 inline-block rounded-lg p-2 text-sm text-white dark:text-white"
       >
         <v-remixicon name="riTimerLine" size="20" class="mr-1 inline-block" />
         <span>{{ t('workflow.blocks.delay.name') }}</span>

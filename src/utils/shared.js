@@ -1549,38 +1549,38 @@ export const tasks = {
 export const categories = {
   interaction: {
     name: '网页交互',
-    border: 'border-green-200 dark:border-green-300',
-    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
+    border: 'border-accent',
+    color: 'bg-accent fill-accent',
   },
   browser: {
     name: '浏览器',
-    border: 'border-green-200 dark:border-green-300',
-    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
+    border: 'border-accent',
+    color: 'bg-accent fill-accent',
   },
   general: {
     name: '常规',
-    border: 'border-green-200 dark:border-green-300',
-    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
+    border: 'border-accent',
+    color: 'bg-accent fill-accent',
   },
   onlineServices: {
     name: '在线服务',
-    border: 'border-green-200 dark:border-green-300',
-    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
+    border: 'border-accent',
+    color: 'bg-accent fill-accent',
   },
   data: {
     name: '数据',
-    border: 'border-green-200 dark:border-green-300',
-    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
+    border: 'border-accent',
+    color: 'bg-accent fill-accent',
   },
   conditions: {
     name: '控制流',
-    border: 'border-green-200 dark:border-green-300',
-    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
+    border: 'border-accent',
+    color: 'bg-accent fill-accent',
   },
   package: {
     name: '包',
-    border: 'border-green-200 dark:border-green-300',
-    color: 'bg-green-200 dark:bg-green-300 fill-green-200 dark:fill-green-300',
+    border: 'border-accent',
+    color: 'bg-accent fill-accent',
   },
 };
 
