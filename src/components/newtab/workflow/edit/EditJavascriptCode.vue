@@ -103,6 +103,7 @@
               <button
                 v-for="func in availableFuncs"
                 :key="func.name"
+                v-tooltip="{ content: func.desc, hideOnTargetClick: false }"
                 type="button"
                 class="inline-block cursor-pointer transition-opacity duration-150 hover:opacity-80 active:scale-95"
                 @click="

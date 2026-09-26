@@ -64,8 +64,12 @@
           <p
             class="scroll space-x-1 overflow-x-auto overflow-y-hidden whitespace-nowrap pb-1"
           >
-            <code v-for="func in availableFuncs" :key="func">
-              {{ func }}
+            <code
+              v-for="func in availableFuncs"
+              :key="func.name"
+              v-tooltip="{ content: func.desc, hideOnTargetClick: false }"
+            >
+              {{ func.name }}
             </code>
           </p>
         </ui-tab-panel>
@@ -98,13 +102,34 @@ const emit = defineEmits(['update:data']);
 const { t } = useI18n();
 
 const availableFuncs = [
-  'yuze.get_var(name)',
-  'yuze.set_var(name, value)',
-  'yuze.get_table()',
-  'yuze.set_table(rows)',
-  'yuze.add_row(row)',
-  'yuze.next_block(data)',
-  'yuze.log(*parts)',
+  {
+    name: 'yuze.get_var(name)',
+    desc: '读取工作流变量，可传第二个参数作为默认值',
+  },
+  {
+    name: 'yuze.set_var(name, value)',
+    desc: '写入工作流变量，块结束后回写引擎（值需可 JSON 序列化）',
+  },
+  {
+    name: 'yuze.get_table()',
+    desc: '读取表格，返回行对象列表（字典键 = 列名）',
+  },
+  {
+    name: 'yuze.set_table(rows)',
+    desc: '整体替换表格，rows 为行对象列表',
+  },
+  {
+    name: 'yuze.add_row(row)',
+    desc: '向表格末尾追加一行（字典）',
+  },
+  {
+    name: 'yuze.next_block(data)',
+    desc: '控制流向：data 传给下一个块的数据；insert=False 不写入表格',
+  },
+  {
+    name: 'yuze.log(*parts)',
+    desc: '写日志，在工作流日志中可见',
+  },
 ];
 
 const state = reactive({
