@@ -1222,16 +1222,17 @@ function onEditorInit(instance) {
           }
 
           const isSourceNote = sourceNodeData?.label === 'note';
+          // 落点块的输入句柄 id 各不相同（`<id>-input-1`），需动态取
+          const blockTargetHandle =
+            nodeData?.handleBounds?.target?.[0]?.id || '';
 
           editor.value.addEdges([
             {
               id: `note-link-${noteId}--${linkedBlockId}`,
               source: isSourceNote ? nodeToConnect.nodeId : nodeId,
               target: isSourceNote ? nodeId : nodeToConnect.nodeId,
-              sourceHandle: isSourceNote ? nodeToConnect.handleId : 'note-left',
-              targetHandle: isSourceNote
-                ? 'note-right'
-                : nodeToConnect.handleId,
+              sourceHandle: nodeToConnect.handleId,
+              targetHandle: isSourceNote ? blockTargetHandle : 'note-top',
               class: 'note-link-edge',
               updatable: true,
               selectable: true,

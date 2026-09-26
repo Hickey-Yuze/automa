@@ -5,17 +5,17 @@
     style="min-width: 192px"
   >
     <Handle
-      id="note-left"
+      id="note-top"
       type="target"
-      :position="Position.Left"
+      :position="Position.Top"
       :connectable-start="true"
       :connectable-end="true"
       class="note-handle"
     />
     <Handle
-      id="note-right"
+      id="note-bottom"
       type="source"
-      :position="Position.Right"
+      :position="Position.Bottom"
       :connectable-start="true"
       :connectable-end="true"
       class="note-handle"
@@ -149,7 +149,7 @@ function onMouseup({ target }) {
 </script>
 <style>
 .note-handle {
-  @apply !h-3.5 !w-3.5 !rounded-full !border-2 !border-dashed !border-gray-400 !bg-white dark:!bg-gray-800 transition-colors hover:!border-green-600 dark:hover:!border-green-500;
+  @apply !h-3.5 !w-3.5 !rounded-full !border-2 !border-dashed !border-gray-400 !bg-white dark:!bg-gray-800 transition-colors hover:!border-accent dark:hover:!border-accent;
 }
 .note-color .ui-popover__trigger {
   @apply flex items-center;

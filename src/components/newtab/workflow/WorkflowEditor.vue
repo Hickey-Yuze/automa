@@ -427,6 +427,6 @@ onBeforeUnmount(() => {
 }
 .vue-flow__edge.note-link-edge .vue-flow__edge-path {
   stroke-dasharray: 6 4;
-  stroke: #94a3b8;
+  stroke: rgb(var(--color-accent));
 }
 </style>
