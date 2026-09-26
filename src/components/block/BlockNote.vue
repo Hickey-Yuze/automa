@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[data.color || 'white', colors[data.color || 'white']]"
-    class="block-note rounded-lg p-4"
+    class="block-note relative rounded-lg p-4"
     style="min-width: 192px"
   >
     <Handle
