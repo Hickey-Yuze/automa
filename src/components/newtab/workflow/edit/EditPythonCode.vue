@@ -67,7 +67,12 @@
             <code
               v-for="func in availableFuncs"
               :key="func.name"
-              v-tooltip="{ content: func.desc, hideOnTargetClick: false }"
+              v-tooltip="{
+                content: hoverDoc(func),
+                allowHTML: true,
+                maxWidth: 420,
+                hideOnClick: false,
+              }"
             >
               {{ func.name }}
             </code>
@@ -105,32 +110,55 @@ const availableFuncs = [
   {
     name: 'yuze.get_var(name)',
     desc: '读取工作流变量，可传第二个参数作为默认值',
+    example: "value = yuze.get_var('count', 0)",
   },
   {
     name: 'yuze.set_var(name, value)',
     desc: '写入工作流变量，块结束后回写引擎（值需可 JSON 序列化）',
+    example: "yuze.set_var('tableText', 'a\\nb')",
   },
   {
     name: 'yuze.get_table()',
     desc: '读取表格，返回行对象列表（字典键 = 列名）',
+    example:
+      "rows = yuze.get_table()\ntext = '\\n'.join(r['orderdata'] for r in rows)\nyuze.set_var('tableText', text)",
   },
   {
     name: 'yuze.set_table(rows)',
     desc: '整体替换表格，rows 为行对象列表',
+    example: "yuze.set_table([{'name': 'a'}, {'name': 'b'}])",
   },
   {
     name: 'yuze.add_row(row)',
     desc: '向表格末尾追加一行（字典）',
+    example: "yuze.add_row({'name': '新行', '数量': 1})",
   },
   {
     name: 'yuze.next_block(data)',
     desc: '控制流向：data 传给下一个块的数据；insert=False 不写入表格',
+    example: "yuze.next_block(data={'msg': 'ok'})",
   },
   {
     name: 'yuze.log(*parts)',
     desc: '写日志，在工作流日志中可见',
+    example: "yuze.log('处理完成', len(rows))",
   },
 ];
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function hoverDoc(func) {
+  return `<div style="text-align:left"><p style="margin-bottom:4px">${escapeHtml(
+    func.desc
+  )}</p><pre style="white-space:pre-wrap;margin:0;padding:6px 8px;background:rgba(0,0,0,.35);border-radius:6px;font-size:12px">${escapeHtml(
+    func.example
+  )}</pre></div>`;
+}
 
 const state = reactive({
   activeTab: 'code',

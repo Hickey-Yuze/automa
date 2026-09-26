@@ -86,9 +86,12 @@
           />
           <template v-if="!data.everyNewTab">
             <p class="mt-1 flex justify-between text-sm">
-              <span>{{
-                t('workflow.blocks.javascript-code.availabeFuncs')
-              }}</span>
+              <span
+                >{{ t('workflow.blocks.javascript-code.availabeFuncs') }}
+                <span class="text-xs text-gray-500">
+                  悬停看说明和示例，点击展开完整文档
+                </span></span
+              >
               <span>
                 <span
                   class="cursor-pointer select-none underline"
@@ -103,7 +106,12 @@
               <button
                 v-for="func in availableFuncs"
                 :key="func.name"
-                v-tooltip="{ content: func.desc, hideOnTargetClick: false }"
+                v-tooltip="{
+                  content: hoverDoc(func),
+                  allowHTML: true,
+                  maxWidth: 420,
+                  hideOnClick: false,
+                }"
                 type="button"
                 class="inline-block cursor-pointer transition-opacity duration-150 hover:opacity-80 active:scale-95"
                 @click="
@@ -280,6 +288,21 @@ function contextText(doc) {
 }
 function insertExample(doc) {
   state.code = `${state.code}\n${doc.example}`;
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function hoverDoc(func) {
+  return `<div style="text-align:left"><p style="margin-bottom:4px">${escapeHtml(
+    func.desc
+  )}</p><pre style="white-space:pre-wrap;margin:0;padding:6px 8px;background:rgba(0,0,0,.35);border-radius:6px;font-size:12px">${escapeHtml(
+    func.example
+  )}</pre></div>`;
 }
 
 const workflow = inject('workflow');

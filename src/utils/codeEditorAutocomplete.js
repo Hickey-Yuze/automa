@@ -77,6 +77,7 @@ export function automaFuncsCompletion(snippets) {
     return {
       from: word.from,
       options: snippets,
+      validFor: /^[\w$]*$/,
     };
   };
 }
