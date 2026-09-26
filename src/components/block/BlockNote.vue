@@ -1,6 +1,11 @@
 <template>
   <div
-    :class="[data.color || 'white', colors[data.color || 'white']]"
+    :class="[
+      data.color || 'white',
+      colors[data.color || 'white'],
+      lightText ? 'text-white dark:text-white' : '',
+    ]"
+    :style="customColorStyle"
     class="block-note relative rounded-lg p-4"
     style="min-width: 192px"
   >
@@ -32,14 +37,25 @@
           />
         </template>
         <p class="mb-1 ml-1 text-sm text-gray-600 dark:text-gray-200">颜色</p>
-        <div class="flex w-52 flex-wrap items-center gap-2">
+        <div class="flex items-center space-x-2">
           <span
             v-for="(color, colorId) in colors"
             :key="colorId"
             :class="color"
             style="border-width: 3px"
-            class="inline-block h-7 w-7 cursor-pointer rounded-full"
+            class="inline-block h-8 w-8 cursor-pointer rounded-full"
             @click="updateData({ color: colorId })"
+          />
+          <input
+            type="color"
+            title="自定义颜色"
+            :value="
+              typeof data.color === 'string' && data.color.startsWith('#')
+                ? data.color
+                : '#ffffff'
+            "
+            class="note-color-picker inline-block h-8 w-8 cursor-pointer rounded-full"
+            @input="updateData({ color: $event.target.value })"
           />
         </div>
         <ui-select
@@ -82,6 +98,7 @@
   </div>
 </template>
 <script setup>
+import { computed } from 'vue';
 import { debounce } from '@/utils/helper';
 import { Handle, Position } from '@vue-flow/core';
 
@@ -109,17 +126,31 @@ const initialSize = {
 const colors = {
   white: 'bg-white dark:bg-gray-800',
   red: 'bg-red-200 dark:bg-red-300',
-  orange: 'bg-orange-200 dark:bg-orange-300',
-  amber: 'bg-amber-200 dark:bg-amber-300',
-  yellow: 'bg-yellow-200 dark:bg-yellow-300',
-  lime: 'bg-lime-200 dark:bg-lime-300',
-  green: 'bg-green-200 dark:bg-green-300',
-  teal: 'bg-teal-200 dark:bg-teal-300',
-  sky: 'bg-sky-200 dark:bg-sky-300',
   indigo: 'bg-indigo-200 dark:bg-indigo-300',
-  purple: 'bg-purple-200 dark:bg-purple-300',
-  pink: 'bg-pink-200 dark:bg-pink-300',
+  green: 'bg-green-200 dark:bg-green-300',
+  amber: 'bg-amber-200 dark:bg-amber-300',
+  sky: 'bg-sky-200 dark:bg-sky-300',
 };
+
+// 自定义颜色（#hex 存于 data.color）：卡片内联背景 + 按亮度自动切文字色
+const customColorStyle = computed(() => {
+  const { color } = props.data;
+
+  return typeof color === 'string' && color.startsWith('#')
+    ? { backgroundColor: color }
+    : null;
+});
+const lightText = computed(() => {
+  const { color } = props.data;
+  if (typeof color !== 'string' || !color.startsWith('#')) return false;
+
+  const hex = color.slice(1);
+  const [r, g, b] = [0, 2, 4].map(
+    (i) => parseInt(hex.slice(i, i + 2), 16) || 0
+  );
+
+  return 0.299 * r + 0.587 * g + 0.114 * b < 140;
+});
 const fontSize = {
   regular: {
     name: '常规',
@@ -154,6 +185,26 @@ function onMouseup({ target }) {
 }
 </script>
 <style>
+.note-color-picker {
+  @apply appearance-none border-0 bg-none p-0;
+  background: conic-gradient(
+    #f87171,
+    #fbbf24,
+    #a3e635,
+    #34d399,
+    #22d3ee,
+    #818cf8,
+    #f472b6,
+    #f87171
+  );
+}
+.note-color-picker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+.note-color-picker::-webkit-color-swatch {
+  border: 2px solid white;
+  border-radius: 50%;
+}
 .note-handle {
   @apply !h-3.5 !w-3.5 !rounded-full !border-2 !border-dashed !border-gray-400 !bg-white dark:!bg-gray-800 transition-colors hover:!border-accent dark:hover:!border-accent;
 }
