@@ -4,6 +4,18 @@
     class="block-note rounded-lg p-4"
     style="min-width: 192px"
   >
+    <Handle
+      id="note-input"
+      type="target"
+      :position="Position.Left"
+      class="note-handle"
+    />
+    <Handle
+      id="note-output"
+      type="source"
+      :position="Position.Right"
+      class="note-handle"
+    />
     <div class="flex items-center border-b pb-2">
       <v-remixicon name="riFileEditLine" size="20" />
       <p class="mx-2 flex-1 font-semibold">注释</p>
@@ -67,6 +79,7 @@
 </template>
 <script setup>
 import { debounce } from '@/utils/helper';
+import { Handle, Position } from '@vue-flow/core';
 
 const props = defineProps({
   id: {
@@ -131,6 +144,9 @@ function onMouseup({ target }) {
 }
 </script>
 <style>
+.note-handle {
+  @apply !h-2.5 !w-2.5 rounded-full border-none bg-gray-400 transition-colors hover:bg-green-600 dark:bg-gray-500;
+}
 .note-color .ui-popover__trigger {
   @apply flex items-center;
 }

@@ -1048,7 +1048,9 @@ function autoAlign() {
       });
     }
   );
-  editor.value.getEdges.value.forEach(({ source, target, id }) => {
+  editor.value.getEdges.value.forEach(({ source, target, id, data }) => {
+    if (data?.isNoteLink) return;
+
     graph.setEdge(source, target, { id });
   });
 
@@ -1102,8 +1104,9 @@ function initEditBlock(data) {
 
   if (data.id === 'wait-connections') {
     const connections = editor.value.getEdges.value.reduce(
-      (acc, { target, sourceNode, source }) => {
+      (acc, { target, sourceNode, source, data: edgeData }) => {
         if (target !== data.blockId) return acc;
+        if (edgeData?.isNoteLink) return acc;
 
         const blockNameKey = `workflow.blocks.${sourceNode.label}.name`;
         let blockName = te(blockNameKey)
@@ -1199,6 +1202,44 @@ function onEditorInit(instance) {
     if (targetNode && targetNode.dataset.id !== nodeToConnect.nodeId) {
       const nodeId = targetNode.dataset.id;
       const nodeData = editor.value.getNode.value(nodeId);
+      const sourceNodeData = editor.value.getNode.value(nodeToConnect.nodeId);
+
+      // 任一端是注释块：建立虚线关联而非执行边（addEdges 不会触发 onConnect 拦截，需在此处理）
+      const isNoteLink =
+        sourceNodeData?.label === 'note' || nodeData?.label === 'note';
+      if (isNoteLink) {
+        const noteNode =
+          sourceNodeData?.label === 'note' ? sourceNodeData : nodeData;
+        const noteId = noteNode.id;
+        const linkedBlockId =
+          noteId === nodeToConnect.nodeId ? nodeId : nodeToConnect.nodeId;
+
+        if (linkedBlockId && linkedBlockId !== noteId) {
+          const links = new Set(noteNode.data.links || []);
+          if (!links.has(linkedBlockId)) {
+            links.add(linkedBlockId);
+            noteNode.data = { ...noteNode.data, links: [...links] };
+          }
+
+          editor.value.addEdges([
+            {
+              id: `note-link-${noteId}--${linkedBlockId}`,
+              source: nodeToConnect.nodeId,
+              target: nodeId,
+              sourceHandle: nodeToConnect.handleId,
+              targetHandle: 'note-input',
+              class: 'note-link-edge',
+              updatable: true,
+              selectable: true,
+              data: { isNoteLink: true },
+            },
+          ]);
+          state.dataChanged = true;
+        }
+
+        nodeToConnect = null;
+        return;
+      }
 
       if (nodeData && nodeData.handleBounds.target.length >= 1) {
         const targetHandle = nodeData.handleBounds.target.find(

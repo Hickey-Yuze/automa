@@ -175,18 +175,83 @@ const editor = useVueFlow({
   defaultPosition: getPosition(props.data?.position),
   ...props.options,
 });
+function addNoteLink(params) {
+  const isSourceNote = editor.findNode(params.source)?.label === 'note';
+  const noteId = isSourceNote ? params.source : params.target;
+  const blockId = isSourceNote ? params.target : params.source;
+  const noteNode = editor.findNode(noteId);
+
+  if (!noteNode || !blockId || blockId === noteId) return;
+
+  const links = new Set(noteNode.data.links || []);
+  if (links.has(blockId)) return;
+
+  links.add(blockId);
+  noteNode.data = { ...noteNode.data, links: [...links] };
+
+  editor.addEdges([
+    {
+      id: `note-link-${noteId}--${blockId}`,
+      source: params.source,
+      target: params.target,
+      sourceHandle: params.sourceHandle,
+      targetHandle: params.targetHandle,
+      class: 'note-link-edge',
+      updatable: true,
+      selectable: true,
+      data: { isNoteLink: true },
+    },
+  ]);
+  emit('update:node', noteNode);
+}
+
 editor.onConnect((params) => {
+  const isNoteLink =
+    editor.findNode(params.source)?.label === 'note' ||
+    editor.findNode(params.target)?.label === 'note';
+
+  if (isNoteLink) {
+    addNoteLink(params);
+    return;
+  }
+
   params.class = `source-${params.sourceHandle} target-${params.targetHandle}`;
   params.updatable = true;
   editor.addEdges([params]);
 });
 editor.onEdgeUpdate(({ edge, connection }) => {
+  if (edge.data?.isNoteLink) {
+    editor.removeEdges([edge.id]);
+    addNoteLink(connection);
+
+    return;
+  }
+
   const isBothOutput =
     connection.sourceHandle.includes('output') &&
     connection.targetHandle.includes('output');
   if (isBothOutput) return;
 
   Object.assign(edge, connection);
+});
+// 删除虚线（选中按 Delete / 双击）时同步移除注释上的关联记录
+editor.onEdgesChange((changes) => {
+  changes.forEach(({ type, item }) => {
+    if (type !== 'remove' || !item?.data?.isNoteLink) return;
+
+    const isSourceNote = editor.findNode(item.source)?.label === 'note';
+    const noteId = isSourceNote ? item.source : item.target;
+    const blockId = isSourceNote ? item.target : item.source;
+    const noteNode = editor.findNode(noteId);
+
+    if (!noteNode) return;
+
+    noteNode.data = {
+      ...noteNode.data,
+      links: (noteNode.data.links || []).filter((id) => id !== blockId),
+    };
+    emit('update:node', noteNode);
+  });
 });
 
 const blocks = getBlocks();
@@ -337,5 +402,9 @@ onBeforeUnmount(() => {
 
 .control-button {
   @apply p-2 rounded-lg bg-white dark:bg-gray-800 transition-colors;
+}
+.vue-flow__edge.note-link-edge .vue-flow__edge-path {
+  stroke-dasharray: 6 4;
+  stroke: #94a3b8;
 }
 </style>
