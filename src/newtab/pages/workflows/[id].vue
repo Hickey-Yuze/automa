@@ -1221,13 +1221,17 @@ function onEditorInit(instance) {
             noteNode.data = { ...noteNode.data, links: [...links] };
           }
 
+          const isSourceNote = sourceNodeData?.label === 'note';
+
           editor.value.addEdges([
             {
               id: `note-link-${noteId}--${linkedBlockId}`,
-              source: nodeToConnect.nodeId,
-              target: nodeId,
-              sourceHandle: nodeToConnect.handleId,
-              targetHandle: 'note-input',
+              source: isSourceNote ? nodeToConnect.nodeId : nodeId,
+              target: isSourceNote ? nodeId : nodeToConnect.nodeId,
+              sourceHandle: isSourceNote
+                ? nodeToConnect.handleId
+                : 'note-bottom',
+              targetHandle: isSourceNote ? 'note-top' : nodeToConnect.handleId,
               class: 'note-link-edge',
               updatable: true,
               selectable: true,

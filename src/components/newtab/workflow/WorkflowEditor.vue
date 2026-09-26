@@ -84,6 +84,7 @@ import {
   VueFlow,
   useVueFlow,
   MarkerType,
+  ConnectionMode,
   getConnectedEdges,
 } from '@vue-flow/core';
 import { Background } from '@vue-flow/background';
@@ -165,6 +166,7 @@ const editor = useVueFlow({
   edgeUpdaterRadius: 20,
   deleteKeyCode: 'Delete',
   elevateEdgesOnSelect: true,
+  connectionMode: ConnectionMode.Loose,
   defaultZoom: props.data?.zoom ?? 1,
   minZoom: setMinValue(+store.settings.editor.minZoom || 0.5, 0.1),
   maxZoom: setMinValue(
@@ -214,6 +216,12 @@ editor.onConnect((params) => {
     addNoteLink(params);
     return;
   }
+
+  // Loose 模式下输出对输出的连线同样无效，保持与执行边规则一致
+  const isBothOutput =
+    params.sourceHandle?.includes('output') &&
+    params.targetHandle?.includes('output');
+  if (isBothOutput) return;
 
   params.class = `source-${params.sourceHandle} target-${params.targetHandle}`;
   params.updatable = true;
